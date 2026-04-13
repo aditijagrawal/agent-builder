@@ -21,7 +21,7 @@ const xyflowSystemPath = fs.existsSync(localXyflowSystem)
   ? localXyflowSystem
   : path.resolve(root, 'node_modules/@xyflow/system');
 
-/** @type { import('@storybook/react-vite').StorybookConfig } */
+/** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
   stories: [
     "../src/**/*.mdx",
@@ -29,19 +29,18 @@ const config = {
   ],
   addons: [
     "@chromatic-com/storybook",
-    "@storybook/addon-vitest",
     "@storybook/addon-a11y",
     "@storybook/addon-docs",
-    "@storybook/addon-onboarding"
+    "@storybook/addon-onboarding",
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: "@storybook/react-webpack5",
     options: {}
   },
   typescript: {
     reactDocgen: false,
   },
-  async viteFinal(config) {
+  async webpackFinal(config) {
     config.resolve = config.resolve ?? {};
     config.resolve.alias = {
       ...(config.resolve.alias ?? {}),
@@ -49,6 +48,44 @@ const config = {
       '@xyflow/react': xyflowReactPath,
       '@xyflow/system': xyflowSystemPath,
     };
+
+    // Add Babel loader for JS/JSX files (including those in node_modules that need transpilation)
+    config.module = config.module ?? {};
+    config.module.rules = config.module.rules ?? [];
+
+    // Find and update the existing JS rule or add a new one
+    const jsRule = config.module.rules.find(
+      (rule) => rule.test && rule.test.toString().includes('jsx')
+    );
+    if (jsRule) {
+      // Ensure babel-loader is used
+      jsRule.use = [
+        {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: { node: 'current' } }],
+              ['@babel/preset-react', { runtime: 'automatic' }],
+            ],
+          },
+        },
+      ];
+    } else {
+      config.module.rules.push({
+        test: /\.(js|jsx|mjs|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: { node: 'current' } }],
+              ['@babel/preset-react', { runtime: 'automatic' }],
+            ],
+          },
+        },
+      });
+    }
+
     return config;
   },
 };
