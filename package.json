@@ -12,7 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@birdeye/elemental": "file:../elemental",
+    "@birdeye/elemental": "file:./vendor/birdeye-elemental-1.1.84.tgz",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
