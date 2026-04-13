@@ -3,6 +3,8 @@ name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches: [main]
+    paths:
+      - 'storybook-static/**'
   workflow_dispatch:
 
 permissions:
@@ -15,30 +17,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: npm
-
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Build Storybook
-        run: npm run build-storybook
-        env:
-          NODE_OPTIONS: "--max-old-space-size=4096"
-
-      - name: Inject password protection
-        run: node scripts/inject-password.js
-        env:
-          STORYBOOK_PASSWORD: ${{ secrets.STORYBOOK_PASSWORD }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -48,13 +34,6 @@ jobs:
         with:
           path: storybook-static
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
