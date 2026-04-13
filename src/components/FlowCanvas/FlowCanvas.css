@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.flow-canvas *,
+.flow-canvas *::before,
+.flow-canvas *::after {
+  box-sizing: border-box;
+}
+
+.flow-canvas .material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+  font-size: 20px !important;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  overflow: hidden;
+}
+
+/* ─── Root ─── */
+.flow-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  font-family: 'Roboto', sans-serif;
+  background: #f4f6f7;
+}
+
+/* ─── Toolbar ─── */
+.flow-canvas__toolbar {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 8px;
+}
+
+.flow-canvas__toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.flow-canvas__toolbar-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #555;
+}
+
+.flow-canvas__toolbar-btn:hover {
+  background: #f5f5f5;
+}
+
+.flow-canvas__toolbar-btn--active {
+  background: #e5e9f0;
+}
+
+.flow-canvas__toolbar-zoom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 8px 8px 8px 12px;
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  color: #555;
+  white-space: nowrap;
+}
+
+.flow-canvas__toolbar-run {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  color: #555;
+}
+
+.flow-canvas__toolbar-run:hover {
+  background: #f5f5f5;
+}
+
+/* ─── Node centering wrapper ─── */
+.flow-canvas__node-center {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+/* ─── React Flow overrides ─── */
+.flow-canvas .react-flow__node {
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  width: auto !important;
+}
+
+.flow-canvas .react-flow__edge-path {
+  stroke: #ccd5e4 !important;
+  stroke-dasharray: 4 4 !important;
+  stroke-width: 1 !important;
+}
+
+.flow-canvas .react-flow__handle {
+  opacity: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+}
+
+/* Hide default controls/attribution */
+.flow-canvas .react-flow__controls,
+.flow-canvas .react-flow__attribution {
+  display: none !important;
+}
+
+/* ─── Custom edge add button ─── */
+.flow-canvas__edge-add-wrapper {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-canvas__edge-add {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.flow-canvas__edge-add:hover {
+  background: #f5f5f5;
+}
+
+.flow-canvas__edge-add .material-symbols-outlined {
+  font-size: 16px !important;
+  width: 16px;
+  height: 16px;
+  color: #555;
+}
+
+/* ─── Selected node highlight ─── */
+.flow-canvas .react-flow__node.flow-canvas__node--selected .flow-node--card {
+  outline: 2px solid #1976d2 !important;
+  outline-offset: 2px;
+}
+
+.flow-canvas .react-flow__node.flow-canvas__node--selected .start-node {
+  border-color: #1976d2 !important;
+  border-width: 2px !important;
+}
