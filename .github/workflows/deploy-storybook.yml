@@ -32,6 +32,8 @@ jobs:
 
       - name: Build Storybook
         run: npm run build-storybook
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
 
       - name: Inject password protection
         run: node scripts/inject-password.js
