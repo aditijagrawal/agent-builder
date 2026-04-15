@@ -6,6 +6,7 @@ import RHSDrawer from '../RHSDrawer/RHSDrawer';
 import TriggerConfigPanel from '../RHSDrawer/TriggerConfigPanel';
 import CustomTaskPanel from '../RHSDrawer/CustomTaskPanel';
 import BranchConfigPanel from '../RHSDrawer/BranchConfigPanel';
+import LocationsDrawer from '../RHSDrawer/LocationsDrawer';
 import './AgentBuilder.css';
 
 const NODE_WIDTH = 400;
@@ -75,12 +76,19 @@ export default function AgentBuilder({
   appTitle = 'Reviews AI',
   pageTitle = 'Review response agent  1',
   activeNavId = 'reviews',
+  initialNodeList = [],
+  initialNodeDetails = {},
+  initialSelectedNodeId = null,
+  initialDrawerOpen = false,
+  initialExpandedView = false,
 }) {
   const [navId, setNavId] = useState(activeNavId);
-  const [nodeList, setNodeList] = useState([]);
-  const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [nodeDetails, setNodeDetails] = useState({});
+  const [nodeList, setNodeList] = useState(initialNodeList);
+  const [selectedNodeId, setSelectedNodeId] = useState(initialSelectedNodeId);
+  const [drawerOpen, setDrawerOpen] = useState(initialDrawerOpen);
+  const [nodeDetails, setNodeDetails] = useState(initialNodeDetails);
+  const [locationsDrawerOpen, setLocationsDrawerOpen] = useState(false);
+  const [isExpandedView, setIsExpandedView] = useState(initialExpandedView);
 
   const handleDeleteNode = useCallback((nodeId) => {
     setNodeList((prev) => {
@@ -98,6 +106,7 @@ export default function AgentBuilder({
     if (selectedNodeId === nodeId) {
       setSelectedNodeId(null);
       setDrawerOpen(false);
+      setIsExpandedView(false);
     }
   }, [selectedNodeId]);
 
@@ -209,11 +218,22 @@ export default function AgentBuilder({
     if (node.type === 'end') return;
     setSelectedNodeId(node.id);
     setDrawerOpen(true);
+    setIsExpandedView(false);
   }, []);
 
   const handleCloseDrawer = useCallback(() => {
     setDrawerOpen(false);
     setSelectedNodeId(null);
+    setLocationsDrawerOpen(false);
+    setIsExpandedView(false);
+  }, []);
+
+  const handleOpenLocationsDrawer = useCallback(() => {
+    setLocationsDrawerOpen(true);
+  }, []);
+
+  const handleCloseLocationsDrawer = useCallback(() => {
+    setLocationsDrawerOpen(false);
   }, []);
 
   const handleDetailChange = useCallback((field, value) => {
@@ -226,22 +246,40 @@ export default function AgentBuilder({
     }));
   }, [selectedNodeId]);
 
+  const startDetails = nodeDetails[START_NODE_ID] || {
+    agentName: pageTitle,
+    goals: 'Respond to customer reviews promptly and professionally, maintaining brand voice and addressing specific customer feedback.',
+    outcomes: 'Improved customer satisfaction scores, faster response times, and consistent brand messaging across all review platforms.',
+    locations: [
+      { id: '1001', name: 'Mountain view, CA' },
+      { id: '1002', name: 'Seattle, WA' },
+      { id: '1004', name: 'Chicago, IL' },
+    ],
+    moreLocationsCount: 1,
+  };
   const currentDetails = selectedNodeId ? nodeDetails[selectedNodeId] : null;
+  const selectedDrawerDetails = selectedNodeId === START_NODE_ID ? startDetails : currentDetails;
+
+  const saveSelectedLocations = useCallback((selectedLocations) => {
+    if (!selectedNodeId) return;
+
+    const chips = selectedLocations.slice(0, 3);
+    const moreCount = Math.max(0, selectedLocations.length - 3);
+
+    setNodeDetails((prev) => ({
+      ...prev,
+      [selectedNodeId]: {
+        ...prev[selectedNodeId],
+        locations: chips,
+        moreLocationsCount: moreCount,
+      },
+    }));
+    setLocationsDrawerOpen(false);
+  }, [selectedNodeId]);
 
   const renderRHSPanel = () => {
     // Start node → Agent details
     if (selectedNodeId === START_NODE_ID) {
-      const startDetails = nodeDetails[START_NODE_ID] || {
-        agentName: pageTitle,
-        goals: 'Respond to customer reviews promptly and professionally, maintaining brand voice and addressing specific customer feedback.',
-        outcomes: 'Improved customer satisfaction scores, faster response times, and consistent brand messaging across all review platforms.',
-        locations: [
-          { id: '1001', name: 'Mountain view, CA' },
-          { id: '1002', name: 'Seattle, WA' },
-          { id: '1004', name: 'Chicago, IL' },
-        ],
-        moreLocationsCount: 1,
-      };
       return (
         <RHSDrawer
           agentName={startDetails.agentName}
@@ -249,6 +287,7 @@ export default function AgentBuilder({
           outcomes={startDetails.outcomes}
           locations={startDetails.locations}
           moreLocationsCount={startDetails.moreLocationsCount}
+          onOpenLocations={handleOpenLocationsDrawer}
           onClose={handleCloseDrawer}
           onSave={handleCloseDrawer}
           onChange={(field, value) => {
@@ -305,6 +344,8 @@ export default function AgentBuilder({
           userPrompt={currentDetails.userPrompt || ''}
           onClose={handleCloseDrawer}
           onSave={handleCloseDrawer}
+          isExpandedView={isExpandedView}
+          onToggleExpandedView={() => setIsExpandedView((prev) => !prev)}
           onChange={handleDetailChange}
         />
       );
@@ -318,6 +359,7 @@ export default function AgentBuilder({
         outcomes={currentDetails.outcomes}
         locations={currentDetails.locations || []}
         moreLocationsCount={currentDetails.moreLocationsCount || 0}
+        onOpenLocations={handleOpenLocationsDrawer}
         onClose={handleCloseDrawer}
         onSave={handleCloseDrawer}
         onChange={handleDetailChange}
@@ -350,6 +392,25 @@ export default function AgentBuilder({
         {drawerOpen && (
           <div className="agent-builder__rhs">
             {renderRHSPanel()}
+          </div>
+        )}
+        {locationsDrawerOpen && selectedDrawerDetails && (
+          <div className="agent-builder__overlay">
+            <button
+              className="agent-builder__blanket el-blanket"
+              type="button"
+              aria-label="Close locations drawer"
+              onClick={handleCloseLocationsDrawer}
+            />
+            <div className="agent-builder__overlay-drawer">
+              <LocationsDrawer
+                selectedIds={[
+                  ...(selectedDrawerDetails.locations || []).map((loc) => loc.id),
+                ]}
+                onBack={handleCloseLocationsDrawer}
+                onSave={saveSelectedLocations}
+              />
+            </div>
           </div>
         )}
       </div>

@@ -3,6 +3,7 @@
   height: 100%;
   gap: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .agent-builder__lhs {
@@ -31,6 +32,30 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.agent-builder__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.agent-builder__blanket {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(33, 33, 33, 0.28);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.agent-builder__overlay-drawer {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  bottom: 8px;
+  pointer-events: auto;
 }
 
 /* ─── Empty state ─── */

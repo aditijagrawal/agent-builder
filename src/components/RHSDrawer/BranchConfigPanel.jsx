@@ -20,6 +20,8 @@ export default function BranchConfigPanel({
   onClose,
   onSave,
   onChange,
+  isExpandedView = false,
+  onToggleExpandedView,
 }) {
   const [conditionGroups, setConditionGroups] = useState(
     initialGroups || [
@@ -67,16 +69,24 @@ export default function BranchConfigPanel({
   };
 
   return (
-    <div className="rhs-drawer">
+    <div className={`rhs-drawer ${isExpandedView ? 'rhs-drawer--expanded' : ''}`}>
       <div className="rhs-drawer__header">
         <span className="rhs-drawer__header-title">Branch</span>
         <div className="rhs-drawer__header-actions">
           <button className="rhs-drawer__icon-btn">
             <span className="material-symbols-outlined">play_arrow</span>
           </button>
-          <button className="rhs-drawer__icon-btn">
-            <span className="material-symbols-outlined">open_in_full</span>
-          </button>
+          {onToggleExpandedView && (
+            <button
+              className="rhs-drawer__icon-btn"
+              onClick={onToggleExpandedView}
+              aria-label={isExpandedView ? 'Collapse branch panel' : 'Expand branch panel'}
+            >
+              <span className="material-symbols-outlined">
+                {isExpandedView ? 'close_fullscreen' : 'open_in_full'}
+              </span>
+            </button>
+          )}
           <button className="rhs-drawer__icon-btn" onClick={onClose}>
             <span className="material-symbols-outlined">close</span>
           </button>

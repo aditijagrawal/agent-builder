@@ -4,8 +4,8 @@ import './FlowNode.css';
 
 const ICON_CONFIG = {
   trigger: { icon: 'bolt', modifier: 'trigger' },
-  task: { icon: 'task_alt', modifier: 'task' },
-  branch: { icon: 'account_tree', modifier: 'branch' },
+  task: { icon: 'description', modifier: 'task' },
+  branch: { icon: 'call_split', modifier: 'branch' },
 };
 
 function CardNode({

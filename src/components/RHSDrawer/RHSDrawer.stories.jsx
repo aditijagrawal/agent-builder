@@ -1,38 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RHSDrawer from './RHSDrawer';
 import TriggerConfigPanel from './TriggerConfigPanel';
 import CustomTaskPanel from './CustomTaskPanel';
 import BranchConfigPanel from './BranchConfigPanel';
-import LocationsDrawer from './LocationsDrawer';
 
 export default {
-  title: 'Components/RHSDrawer',
+  title: 'Agent Builder/Modules/RHSPanel',
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
 };
 
-/* ─── Agent Details (Start Node) ─── */
-export const AgentDetails = {
-  render: (args) => <RHSDrawer {...args} />,
-  args: {
-    agentName: 'Review response agent 1',
-    goals:
-      'Executes rule-based logic to rotate through qualifying templates and publish them automatically. If technical restrictions prevent immediate posting, the response is queued as a suggestion for manual review',
-    outcomes:
-      'Ensure safe, effortless engagement by relying exclusively on your pre-approved templates. Eliminate manual effort and operational overhead by autonomously responding across platforms',
-    locations: [
-      { id: '1001', name: 'Mountain view, CA' },
-      { id: '1002', name: 'Seattle, WA' },
-      { id: '1004', name: 'Chicago, IL' },
-    ],
-    moreLocationsCount: 1,
-  },
-};
+/* ─── Shared helpers ─── */
+
+function StoryStage({ children, width = 1160, height = 760 }) {
+  return (
+    <div style={{ position: 'relative', width, height }}>
+      <div style={{ position: 'absolute', top: 0, right: 0, bottom: 0 }}>{children}</div>
+    </div>
+  );
+}
+
+/* ─── Agent Details Panel ─── */
+
+function AgentDetailsStory(args) {
+  const [state, setState] = useState({ ...args });
+  return (
+    <StoryStage>
+      <RHSDrawer
+        {...state}
+        onChange={(field, value) => setState((prev) => ({ ...prev, [field]: value }))}
+      />
+    </StoryStage>
+  );
+}
 
 export const AgentDetailsEmpty = {
-  render: (args) => <RHSDrawer {...args} />,
+  name: 'AgentDetails — Empty',
+  render: (args) => <AgentDetailsStory {...args} />,
   args: {
     agentName: '',
     goals: '',
@@ -42,89 +48,96 @@ export const AgentDetailsEmpty = {
   },
 };
 
-/* ─── Locations Drawer ─── */
-export const Locations = {
-  render: (args) => (
-    <div style={{ height: 700 }}>
-      <LocationsDrawer {...args} />
-    </div>
-  ),
+export const AgentDetailsFilled = {
+  name: 'AgentDetails — Filled',
+  render: (args) => <AgentDetailsStory {...args} />,
   args: {
-    selectedIds: ['1001', '1002', '1004', '1011'],
-    onBack: () => console.log('Back clicked'),
-    onSave: (selected) => console.log('Save locations:', selected),
+    agentName: 'Review response agent 1',
+    goals: 'Respond to customer reviews promptly and professionally, maintaining brand voice and addressing specific customer feedback.',
+    outcomes: 'Improved customer satisfaction scores, faster response times, and consistent brand messaging across all review platforms.',
+    locations: [
+      { id: '1001', name: 'Mountain view, CA' },
+      { id: '1002', name: 'Seattle, WA' },
+      { id: '1004', name: 'Chicago, IL' },
+    ],
+    moreLocationsCount: 1,
   },
 };
 
-export const LocationsEmpty = {
-  render: (args) => (
-    <div style={{ height: 700 }}>
-      <LocationsDrawer {...args} />
-    </div>
-  ),
+/* ─── Trigger Config Panel ─── */
+
+function TriggerStory(args) {
+  const [state, setState] = useState({ ...args });
+  const [isExpanded, setIsExpanded] = useState(Boolean(args.isExpandedView));
+  return (
+    <StoryStage>
+      <TriggerConfigPanel
+        {...state}
+        isExpandedView={isExpanded}
+        onToggleExpandedView={() => setIsExpanded((prev) => !prev)}
+        onChange={(field, value) => setState((prev) => ({ ...prev, [field]: value }))}
+      />
+    </StoryStage>
+  );
+}
+
+export const TriggerEmpty = {
+  name: 'Trigger — Empty',
+  render: (args) => <TriggerStory {...args} />,
   args: {
-    selectedIds: [],
-    onBack: () => console.log('Back clicked'),
-    onSave: (selected) => console.log('Save locations:', selected),
+    triggerName: '',
+    description: '',
+    conditions: [{ field: '', operator: '', value: '' }],
+    isExpandedView: false,
   },
 };
 
-/* ─── Trigger Configuration ─── */
-export const TriggerConfig = {
-  render: (args) => <TriggerConfigPanel {...args} />,
+export const TriggerFilled = {
+  name: 'Trigger — Filled',
+  render: (args) => <TriggerStory {...args} />,
   args: {
     triggerName: 'Schedule-based',
     description: 'Schedule-based',
     conditions: [
-      { field: '', operator: '', value: '' },
-      { field: '', operator: '', value: '' },
-      { field: '', operator: '', value: '' },
+      { field: 'Review source', operator: 'is equal to', value: 'Google' },
+      { logic: 'OR', field: 'Review source', operator: 'is equal to', value: 'Birdeye' },
     ],
+    isExpandedView: false,
   },
 };
 
-export const TriggerConfigFilled = {
-  render: (args) => <TriggerConfigPanel {...args} />,
+/* ─── Branch Config Panel ─── */
+
+function BranchStory(args) {
+  const [state, setState] = useState({ ...args });
+  const [isExpanded, setIsExpanded] = useState(Boolean(args.isExpandedView));
+  return (
+    <StoryStage>
+      <BranchConfigPanel
+        {...state}
+        isExpandedView={isExpanded}
+        onToggleExpandedView={() => setIsExpanded((prev) => !prev)}
+        onChange={(field, value) => setState((prev) => ({ ...prev, [field]: value }))}
+      />
+    </StoryStage>
+  );
+}
+
+export const BranchEmpty = {
+  name: 'Branch — Empty',
+  render: (args) => <BranchStory {...args} />,
   args: {
-    triggerName: 'When a new review is received or updated',
-    description: 'Agent triggers on new or updated reviews across all sources and locations',
-    conditions: [
-      { field: 'Source', operator: 'is', value: 'Google' },
-      { field: 'Rating', operator: 'is greater than', value: '3' },
-    ],
+    branchName: '',
+    description: '',
+    basedOn: 'Conditions',
+    conditionGroups: [[{ field: '', operator: 'is equal to', value: '' }]],
+    isExpandedView: false,
   },
 };
 
-/* ─── Custom Task ─── */
-export const CustomTask = {
-  render: (args) => <CustomTaskPanel {...args} />,
-  args: {
-    taskName: 'Identify relevant mentions in the review',
-    description: 'Extract product or service-specific feedback from the review',
-    llmModel: 'Fast',
-    systemPrompt: '',
-    userPrompt: '',
-  },
-};
-
-export const CustomTaskFilled = {
-  render: (args) => <CustomTaskPanel {...args} />,
-  args: {
-    taskName: 'Generate response',
-    description: 'Generate a contextual response based on the review content',
-    llmModel: 'Powerful',
-    systemPrompt: 'You are a helpful customer service agent. Respond professionally to customer reviews.',
-    userPrompt: 'Write a response to this review: {{review_text}}',
-  },
-};
-
-/* ─── Branch Configuration ─── */
-export const BranchConfig = {
-  render: (args) => (
-    <div style={{ height: 700 }}>
-      <BranchConfigPanel {...args} />
-    </div>
-  ),
+export const BranchFilled = {
+  name: 'Branch — Filled',
+  render: (args) => <BranchStory {...args} />,
   args: {
     branchName: 'Legal',
     description: 'Route reviews related to legal or compliance matters.',
@@ -133,57 +146,35 @@ export const BranchConfig = {
       [{ field: '1.Review.sentiment', operator: 'is equal to', value: 'Negative' }],
       [{ field: '3.identified_team', operator: 'is equal to', value: 'Legal' }],
     ],
+    isExpandedView: false,
   },
 };
 
-export const BranchConfigEmpty = {
-  render: (args) => (
-    <div style={{ height: 600 }}>
-      <BranchConfigPanel {...args} />
-    </div>
-  ),
-  args: {
-    branchName: '',
-    description: '',
-    basedOn: 'Conditions',
-    conditionGroups: [
-      [{ field: '', operator: 'is equal to', value: '' }],
-    ],
-  },
-};
+/* ─── All Panels side-by-side ─── */
 
-/* ─── All Panels Side by Side ─── */
 export const AllPanels = {
+  name: 'All Panels (Overview)',
   render: () => (
     <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start', flexWrap: 'wrap' }}>
       <RHSDrawer
         agentName="Review response agent 1"
-        goals="Respond to customer reviews promptly and professionally."
-        outcomes="Improved customer satisfaction scores."
-        locations={[
-          { id: '1001', name: 'Mountain view, CA' },
-          { id: '1002', name: 'Seattle, WA' },
-          { id: '1004', name: 'Chicago, IL' },
-        ]}
-        moreLocationsCount={1}
+        goals="Respond to customer reviews promptly."
+        outcomes="Improved customer satisfaction."
+        locations={[{ id: '1001', name: 'Mountain view, CA' }]}
+        moreLocationsCount={2}
       />
       <TriggerConfigPanel
         triggerName="Schedule-based"
         description="Schedule-based"
+        conditions={[{ field: 'Review source', operator: 'is equal to', value: 'Google' }]}
+        isExpandedView={false}
       />
-      <div style={{ height: 600 }}>
-        <CustomTaskPanel
-          taskName="Identify mentions"
-          description="Extract feedback from the review"
-        />
-      </div>
       <div style={{ height: 700 }}>
         <BranchConfigPanel
-          branchName=""
-          description=""
-          conditionGroups={[
-            [{ field: '', operator: 'is equal to', value: '' }],
-          ]}
+          branchName="Legal"
+          description="Route to legal team."
+          conditionGroups={[[{ field: '1.Review.sentiment', operator: 'is equal to', value: 'Negative' }]]}
+          isExpandedView={false}
         />
       </div>
     </div>

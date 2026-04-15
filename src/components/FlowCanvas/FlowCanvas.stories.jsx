@@ -2,7 +2,7 @@ import React from 'react';
 import FlowCanvas from './FlowCanvas';
 
 export default {
-  title: 'Components/FlowCanvas',
+  title: 'Agent Builder/Modules/FlowCanvas',
   component: FlowCanvas,
   parameters: {
     layout: 'fullscreen',

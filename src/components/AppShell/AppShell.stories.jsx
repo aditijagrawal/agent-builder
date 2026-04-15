@@ -2,81 +2,110 @@ import React, { useState } from 'react';
 import AppShell from './AppShell';
 
 export default {
-  title: 'Shell/AppShell',
+  title: 'Agent Builder/Foundations/AppShell',
   component: AppShell,
   parameters: {
     layout: 'fullscreen',
   },
+  tags: ['autodocs'],
+  argTypes: {
+    appTitle: { control: 'text' },
+    pageTitle: { control: 'text' },
+    activeNavId: {
+      control: 'select',
+      options: [
+        'overview', 'inbox', 'listings', 'reviews', 'referrals',
+        'payments', 'appointments', 'social', 'surveys', 'ticketing',
+        'contacts', 'campaigns', 'reports', 'insights', 'competitors',
+      ],
+    },
+    publishDisabled: { control: 'boolean' },
+  },
 };
 
-export const Default = () => {
-  const [activeNav, setActiveNav] = useState('listings');
-  return (
-    <AppShell
-      appTitle="Listings AI"
-      pageTitle="Listings scan agent  1"
-      activeNavId={activeNav}
-      onNavChange={setActiveNav}
-      onBack={() => alert('Back clicked')}
-      publishDisabled
-    />
-  );
+export const Default = {
+  render: (args) => {
+    const [activeNav, setActiveNav] = useState(args.activeNavId ?? 'reviews');
+    return (
+      <AppShell
+        {...args}
+        activeNavId={activeNav}
+        onNavChange={setActiveNav}
+      />
+    );
+  },
+  args: {
+    appTitle: 'Reviews AI',
+    pageTitle: 'Review response agent 1',
+    activeNavId: 'reviews',
+    publishDisabled: true,
+  },
 };
 
-export const WithContent = () => {
-  const [activeNav, setActiveNav] = useState('listings');
-  return (
-    <AppShell
-      appTitle="Listings AI"
-      pageTitle="Listings scan agent  1"
-      activeNavId={activeNav}
-      onNavChange={setActiveNav}
-      publishDisabled={false}
-      onPublish={() => alert('Publishing...')}
-    >
-      <div style={{ padding: 24 }}>
+export const PublishEnabled = {
+  render: (args) => {
+    const [activeNav, setActiveNav] = useState(args.activeNavId ?? 'reviews');
+    return (
+      <AppShell
+        {...args}
+        activeNavId={activeNav}
+        onNavChange={setActiveNav}
+        onPublish={() => alert('Publish clicked!')}
+      />
+    );
+  },
+  args: {
+    appTitle: 'Reviews AI',
+    pageTitle: 'Review response agent 1',
+    activeNavId: 'reviews',
+    publishDisabled: false,
+  },
+};
+
+export const ListingsVariant = {
+  render: (args) => {
+    const [activeNav, setActiveNav] = useState(args.activeNavId ?? 'listings');
+    return (
+      <AppShell
+        {...args}
+        activeNavId={activeNav}
+        onNavChange={setActiveNav}
+      />
+    );
+  },
+  args: {
+    appTitle: 'Listings AI',
+    pageTitle: 'Listings scan agent 1',
+    activeNavId: 'listings',
+    publishDisabled: true,
+  },
+};
+
+export const WithContent = {
+  render: () => {
+    const [activeNav, setActiveNav] = useState('reviews');
+    return (
+      <AppShell
+        appTitle="Reviews AI"
+        pageTitle="Review response agent 1"
+        activeNavId={activeNav}
+        onNavChange={setActiveNav}
+        publishDisabled
+      >
         <div
           style={{
-            background: '#fff',
-            borderRadius: 8,
-            padding: 20,
-            boxShadow: '0 2px 12px rgba(33,33,33,0.06)',
-            maxWidth: 400,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            color: '#9e9e9e',
+            fontSize: 14,
+            fontFamily: 'Inter, sans-serif',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
-            <span
-              className="material-symbols-outlined"
-              style={{ fontSize: 20, color: '#555' }}
-            >
-              ballot
-            </span>
-            <span style={{ fontSize: 14, color: '#212121' }}>Task</span>
-          </div>
-          <ol start={1} style={{ paddingLeft: 24, fontSize: 14, color: '#212121' }}>
-            <li style={{ marginBottom: 4 }}>Scan listings for accuracy</li>
-            <li style={{ marginBottom: 4 }}>Identify missing information</li>
-            <li>Generate competitive keywords</li>
-          </ol>
+          Canvas content goes here
         </div>
-      </div>
-    </AppShell>
-  );
-};
-
-export const DifferentPage = () => {
-  const [activeNav, setActiveNav] = useState('reviews');
-  return (
-    <AppShell
-      appTitle="Reviews"
-      pageTitle="Review response template"
-      activeNavId={activeNav}
-      onNavChange={setActiveNav}
-      publishDisabled={false}
-    >
-      <div style={{ padding: 24, color: '#757575', fontSize: 14 }}>
-        Content area for the reviews page.
-      </div>
-    </AppShell>
-  );
+      </AppShell>
+    );
+  },
 };

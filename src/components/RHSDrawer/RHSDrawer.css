@@ -29,6 +29,77 @@
   text-align: left !important;
 }
 
+.rhs-drawer--expanded {
+  width: min(840px, calc(100vw - 120px));
+  max-height: calc(100vh - 40px);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(18, 36, 66, 0.18);
+}
+
+.rhs-drawer--modal {
+  width: 100%;
+  max-width: none;
+  height: min(80vh, 780px);
+}
+
+.rhs-drawer__body--modal {
+  display: grid !important;
+  grid-template-columns: 1.7fr 1fr !important;
+  gap: 20px !important;
+  overflow: hidden !important;
+}
+
+.rhs-drawer__column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding-right: 4px;
+  min-width: 0;
+}
+
+.rhs-drawer__section--card {
+  border: 1px solid #e5e9f0;
+  border-radius: 8px;
+  background: #fafafa;
+  padding: 12px;
+}
+
+.rhs-drawer__preview {
+  font-size: 12px;
+  line-height: 18px;
+  color: #555;
+}
+
+.rhs-drawer__feedback-list {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  line-height: 18px;
+  color: #555;
+}
+
+.rhs-drawer__footer--modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.rhs-drawer__footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rhs-drawer__footer-actions .el-btn,
+.rhs-drawer__footer-actions a.el-btn {
+  width: auto !important;
+}
+
 /* Force left-align on all children (elemental overrides center) */
 .rhs-drawer *,
 .rhs-drawer label,
@@ -297,6 +368,72 @@
   border-radius: 8px;
 }
 
+/* ─── Variable selector row (field chip inside select-like container) ─── */
+.rhs-drawer__var-select {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #fff;
+  padding: 6px 10px 6px 8px;
+  min-height: 40px;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.rhs-drawer__var-select:hover {
+  border-color: #1976d2;
+}
+
+.rhs-drawer__var-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.rhs-drawer__var-chip-label {
+  font-size: 13px;
+  color: #212121;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rhs-drawer__var-chip-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: #8f8f8f;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+.rhs-drawer__var-chip-remove:hover {
+  color: #d32f2f;
+}
+
+.rhs-drawer__var-chip-remove .material-symbols-outlined {
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.rhs-drawer__var-chevron {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  color: #757575 !important;
+  flex-shrink: 0;
+}
+
 /* ─── Stacked full-width select (trigger conditions, branch operator, based-on) ─── */
 .rhs-drawer__stacked-select {
   width: 100%;
@@ -518,6 +655,45 @@
   width: 14px !important;
   height: 14px !important;
   color: #8f8f8f !important;
+}
+
+/* ─── AND/OR logic select (custom styled native) ─── */
+.rhs-drawer__logic-select-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
+
+.rhs-drawer__logic-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 4px 28px 4px 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  outline: none;
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.rhs-drawer__logic-select:focus {
+  border-color: #1976d2;
+}
+
+.rhs-drawer__logic-chevron {
+  position: absolute;
+  right: 6px;
+  pointer-events: none;
+  font-size: 14px !important;
+  width: 14px !important;
+  height: 14px !important;
+  color: #555 !important;
 }
 
 /* ─── Add condition link ─── */

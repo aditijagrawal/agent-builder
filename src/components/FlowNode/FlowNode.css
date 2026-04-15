@@ -51,6 +51,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  min-height: 24px;
 }
 
 /* ─── Icon circles ─── */
@@ -76,22 +77,22 @@
 }
 
 .flow-node__icon-circle--task {
-  background: #e3f2fd;
+  background: #e8f5e9;
 }
 
 .flow-node__icon-circle--task .material-symbols-outlined {
-  color: #1976d2;
+  color: #2e7d32;
   font-size: 16px !important;
   width: 16px;
   height: 16px;
 }
 
 .flow-node__icon-circle--branch {
-  background: #e8f5e9;
+  background: #e3f2fd;
 }
 
 .flow-node__icon-circle--branch .material-symbols-outlined {
-  color: #2e7d32;
+  color: #1976d2;
   font-size: 16px !important;
   width: 16px;
   height: 16px;
@@ -123,6 +124,8 @@
   font-size: 24px !important;
   width: 24px;
   height: 24px;
+  display: block;
+  line-height: 1;
 }
 
 /* ─── Toggle override ─── */
@@ -130,6 +133,7 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  height: 24px;
 }
 
 /* ─── Action buttons ─── */
@@ -151,6 +155,8 @@
   font-size: 24px !important;
   width: 24px;
   height: 24px;
+  display: block;
+  line-height: 1;
 }
 
 .flow-node__action-btn--add .material-symbols-outlined {

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormInput from '@birdeye/elemental/core/atoms/FormInput/index.js';
 import Button from '@birdeye/elemental/core/atoms/Button/index.js';
-import LocationsDrawer from './LocationsDrawer';
 import './RHSDrawer.css';
 
 export default function RHSDrawer({
@@ -10,34 +9,29 @@ export default function RHSDrawer({
   outcomes = '',
   locations = [],
   moreLocationsCount = 0,
+  onOpenLocations,
   onClose,
   onSave,
   onChange,
+  isExpandedView = false,
+  onToggleExpandedView,
 }) {
-  const [showLocations, setShowLocations] = useState(false);
-
-  if (showLocations) {
-    return (
-      <LocationsDrawer
-        selectedIds={locations.map((loc) => loc.id)}
-        onBack={() => setShowLocations(false)}
-        onSave={(selectedLocations) => {
-          // Show first 3 as chips, rest as "+ N more"
-          const chips = selectedLocations.slice(0, 3);
-          const moreCount = Math.max(0, selectedLocations.length - 3);
-          onChange?.('locations', chips);
-          onChange?.('moreLocationsCount', moreCount);
-          setShowLocations(false);
-        }}
-      />
-    );
-  }
-
   return (
-    <div className="rhs-drawer">
+    <div className={`rhs-drawer ${isExpandedView ? 'rhs-drawer--expanded' : ''}`}>
       <div className="rhs-drawer__header">
         <span className="rhs-drawer__header-title">Agent details</span>
         <div className="rhs-drawer__header-actions">
+          {onToggleExpandedView && (
+            <button
+              className="rhs-drawer__icon-btn"
+              onClick={onToggleExpandedView}
+              aria-label={isExpandedView ? 'Collapse panel' : 'Expand panel'}
+            >
+              <span className="material-symbols-outlined">
+                {isExpandedView ? 'close_fullscreen' : 'open_in_full'}
+              </span>
+            </button>
+          )}
           <button className="rhs-drawer__icon-btn" onClick={onClose}>
             <span className="material-symbols-outlined">close</span>
           </button>
@@ -92,7 +86,7 @@ export default function RHSDrawer({
           {moreLocationsCount > 0 && (
             <button
               className="rhs-drawer__more-link"
-              onClick={() => setShowLocations(true)}
+              onClick={onOpenLocations}
             >
               + {moreLocationsCount} more
             </button>
@@ -100,7 +94,7 @@ export default function RHSDrawer({
           {locations.length === 0 && (
             <button
               className="rhs-drawer__add-condition"
-              onClick={() => setShowLocations(true)}
+              onClick={onOpenLocations}
             >
               <span className="material-symbols-outlined">add_circle</span>
               <span>Select locations</span>

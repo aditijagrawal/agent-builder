@@ -6,7 +6,7 @@ import TriggerConfigPanel from '../RHSDrawer/TriggerConfigPanel';
 import CustomTaskPanel from '../RHSDrawer/CustomTaskPanel';
 import BranchConfigPanel from '../RHSDrawer/BranchConfigPanel';
 export default {
-  title: 'Components/FlowNode',
+  title: 'Agent Builder/Modules/Nodes/BaseNode',
   component: FlowNode,
   parameters: {
     layout: 'centered',
