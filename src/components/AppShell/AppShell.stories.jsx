@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AppShell from './AppShell';
 
 export default {
-  title: 'Shell/AppShell',
+  title: 'Agent Builder/Foundations/AppShell',
   component: AppShell,
   parameters: {
     layout: 'fullscreen',

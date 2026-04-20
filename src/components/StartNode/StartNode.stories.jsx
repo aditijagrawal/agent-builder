@@ -2,7 +2,7 @@ import React from 'react';
 import StartNode from './StartNode';
 
 export default {
-  title: 'Components/StartNode',
+  title: 'Internal/StartNode',
   component: StartNode,
   parameters: {
     layout: 'centered',

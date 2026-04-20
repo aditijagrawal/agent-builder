@@ -6,7 +6,7 @@ import BranchConfigPanel from './BranchConfigPanel';
 import LocationsDrawer from './LocationsDrawer';
 
 export default {
-  title: 'Components/RHSDrawer',
+  title: 'Agent Builder/Modules/RHSPanel/RHSPanel',
   parameters: {
     layout: 'centered',
   },

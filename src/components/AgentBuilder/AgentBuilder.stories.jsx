@@ -2,7 +2,7 @@ import React from 'react';
 import AgentBuilder from './AgentBuilder';
 
 export default {
-  title: 'Pages/AgentBuilder',
+  title: 'Agent Builder/Templates/AgentBuilderTemplate',
   component: AgentBuilder,
   parameters: {
     layout: 'fullscreen',
