@@ -5,4 +5,11 @@ export default {
   component: RHSSidePanelHeader,
 };
 
-export const Placeholder = {};
+export const Default = {
+  args: {
+    title: 'Agent details',
+    onPreview: () => {},
+    onExpand: () => {},
+    onClose: () => {},
+  },
+};

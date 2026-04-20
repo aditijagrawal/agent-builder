@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e ' *)",
+      "Bash(open \"http://localhost:6006/?path=/story/agent-builder-modules-rhspanel-trigger-schedulebased--default\")"
+    ]
+  }
+}

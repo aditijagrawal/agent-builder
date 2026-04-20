@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import Button from '@birdeye/elemental/core/atoms/Button/index.js';
-import './RHSDrawer.css';
+import './LocationsDrawer.css';
+
+const font = '"Roboto", arial, sans-serif';
 
 const ALL_LOCATIONS = [
   { id: '1001', name: 'Mountain view, CA' },
@@ -21,26 +23,26 @@ const ALL_LOCATIONS = [
   { id: '1019', name: 'Dallas, TX' },
 ];
 
-const SELECT_BY_OPTIONS = ['Location', 'Region', 'Division', 'City', 'Zip'];
+const SELECT_BY_OPTIONS = [
+  { label: 'Location', value: 'location' },
+  { label: 'Region', value: 'region' },
+  { label: 'Division', value: 'division' },
+  { label: 'City', value: 'city' },
+  { label: 'Zip', value: 'zip' },
+];
 
-export default function LocationsDrawer({
-  selectedIds: initialSelectedIds,
-  onBack,
-  onSave,
-}) {
-  const [selectedIds, setSelectedIds] = useState(
-    initialSelectedIds || ['1001', '1002', '1004', '1011']
-  );
+const DEFAULT_SELECTED = ['1001', '1002', '1004', '1011', '1014', '1017'];
+
+export default function LocationsDrawer({ selectedIds: initialSelectedIds, onBack, onSave }) {
+  const [selectedIds, setSelectedIds] = useState(initialSelectedIds || DEFAULT_SELECTED);
   const [search, setSearch] = useState('');
-  const [selectBy, setSelectBy] = useState('Location');
-  const [showSelectByDropdown, setShowSelectByDropdown] = useState(false);
+  const [selectBy, setSelectBy] = useState('location');
 
   const filteredLocations = useMemo(() => {
     if (!search.trim()) return ALL_LOCATIONS;
     const q = search.toLowerCase();
     return ALL_LOCATIONS.filter(
-      (loc) =>
-        loc.id.includes(q) || loc.name.toLowerCase().includes(q)
+      (loc) => loc.id.includes(q) || loc.name.toLowerCase().includes(q)
     );
   }, [search]);
 
@@ -49,117 +51,100 @@ export default function LocationsDrawer({
   const someSelected = filteredLocations.some((loc) => selectedIds.includes(loc.id)) && !allSelected;
 
   const toggleLocation = (id) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
+    setSelectedIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
   };
 
   const toggleAll = () => {
+    const ids = filteredLocations.map((l) => l.id);
     if (allSelected) {
-      const filteredIds = filteredLocations.map((loc) => loc.id);
-      setSelectedIds((prev) => prev.filter((id) => !filteredIds.includes(id)));
+      setSelectedIds((prev) => prev.filter((id) => !ids.includes(id)));
     } else {
-      const filteredIds = filteredLocations.map((loc) => loc.id);
-      setSelectedIds((prev) => [...new Set([...prev, ...filteredIds])]);
+      setSelectedIds((prev) => [...new Set([...prev, ...ids])]);
     }
   };
 
-  const handleSave = () => {
-    const selected = ALL_LOCATIONS.filter((loc) => selectedIds.includes(loc.id));
-    onSave?.(selected);
-  };
+  const handleSave = () => onSave?.(ALL_LOCATIONS.filter((loc) => selectedIds.includes(loc.id)));
 
   return (
-    <div className="rhs-drawer">
-      <div className="rhs-drawer__header">
-        <div className="locations-drawer__header-left">
-          <button className="rhs-drawer__icon-btn" onClick={onBack}>
-            <span className="material-symbols-outlined">arrow_back</span>
-          </button>
-          <span className="rhs-drawer__header-title">Locations</span>
-        </div>
-        <div className="rhs-drawer__header-actions">
+    <div className="loc-overlay">
+      <div className="loc-drawer">
+
+        {/* Header */}
+        <div className="loc-header">
+          <div className="loc-header__left">
+            <button className="loc-back-btn" onClick={onBack}>
+              <span className="material-symbols-outlined">arrow_back</span>
+            </button>
+            <span className="loc-title">Locations</span>
+          </div>
           <Button theme="primary" label="Save" onClick={handleSave} />
         </div>
-      </div>
 
-      <div className="rhs-drawer__body">
-        <div className="locations-drawer__select-by">
-          <span className="locations-drawer__select-by-text">
-            Choose the locations this agent will work for. Select by{' '}
-          </span>
-          <span
-            className="locations-drawer__select-by-link"
-            onClick={() => setShowSelectByDropdown(!showSelectByDropdown)}
-          >
-            {selectBy.toLowerCase()}
-            <span className="material-symbols-outlined locations-drawer__select-by-chevron">expand_more</span>
-          </span>
-          <span className="material-symbols-outlined locations-drawer__info-icon">info</span>
+        {/* Body */}
+        <div className="loc-body">
+          <div className="loc-inner">
 
-          {showSelectByDropdown && (
-            <div className="locations-drawer__select-by-dropdown">
-              {SELECT_BY_OPTIONS.map((opt) => (
-                <div
-                  key={opt}
-                  className={`locations-drawer__select-by-option ${opt === selectBy ? 'locations-drawer__select-by-option--active' : ''}`}
-                  onClick={() => {
-                    setSelectBy(opt);
-                    setShowSelectByDropdown(false);
-                  }}
+            {/* Description + select by */}
+            <div className="loc-description">
+              <span>Choose the locations this agent will work for. Select by</span>
+              <div className="loc-select-wrapper">
+                <select
+                  className="loc-select-by"
+                  value={selectBy}
+                  onChange={(e) => setSelectBy(e.target.value)}
                 >
-                  <span>{opt}</span>
-                  {opt === selectBy && (
-                    <span className="material-symbols-outlined">check</span>
-                  )}
+                  {SELECT_BY_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+                <span className="material-symbols-outlined loc-select-chevron">expand_more</span>
+              </div>
+              <span className="material-symbols-outlined loc-info-icon">info</span>
+            </div>
+
+            {/* Search */}
+            <div className="loc-search">
+              <span className="material-symbols-outlined loc-search-icon">search</span>
+              <input
+                className="loc-search-input"
+                type="text"
+                placeholder="Search location"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+
+            {/* List */}
+            <div className="loc-list">
+              {/* Select all */}
+              <div className="loc-row" onClick={toggleAll}>
+                <Checkbox checked={allSelected} indeterminate={someSelected} />
+                <span className="loc-row__label">Select all</span>
+                <span className="loc-row__count">{selectedCount} locations selected</span>
+              </div>
+
+              {filteredLocations.map((loc) => (
+                <div key={loc.id} className="loc-row" onClick={() => toggleLocation(loc.id)}>
+                  <Checkbox checked={selectedIds.includes(loc.id)} />
+                  <span className="loc-row__label">{loc.id} - {loc.name}</span>
                 </div>
               ))}
             </div>
-          )}
-        </div>
 
-        <div className="locations-drawer__search">
-          <span className="material-symbols-outlined locations-drawer__search-icon">search</span>
-          <input
-            type="text"
-            className="locations-drawer__search-input"
-            placeholder="Search location"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-
-        <div className="locations-drawer__list">
-          {/* Select All row */}
-          <div className="locations-drawer__row locations-drawer__row--header" onClick={toggleAll}>
-            <span className={`locations-drawer__checkbox ${allSelected ? 'locations-drawer__checkbox--checked' : someSelected ? 'locations-drawer__checkbox--indeterminate' : ''}`}>
-              {allSelected && <span className="material-symbols-outlined">check</span>}
-              {someSelected && !allSelected && <span className="locations-drawer__checkbox-dash">-</span>}
-            </span>
-            <span className="locations-drawer__row-label">Select all</span>
-            <span className="locations-drawer__row-count">{selectedCount} locations selected</span>
           </div>
-
-          {/* Location rows */}
-          {filteredLocations.map((loc) => {
-            const isChecked = selectedIds.includes(loc.id);
-            return (
-              <div
-                key={loc.id}
-                className="locations-drawer__row"
-                onClick={() => toggleLocation(loc.id)}
-              >
-                <span className={`locations-drawer__checkbox ${isChecked ? 'locations-drawer__checkbox--checked' : ''}`}>
-                  {isChecked && <span className="material-symbols-outlined">check</span>}
-                </span>
-                <span className="locations-drawer__row-label">
-                  {loc.id} - {loc.name}
-                </span>
-              </div>
-            );
-          })}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Checkbox({ checked, indeterminate }) {
+  return (
+    <div className={`loc-checkbox ${checked || indeterminate ? 'loc-checkbox--on' : ''}`}>
+      {checked && !indeterminate && (
+        <span className="material-symbols-outlined loc-checkbox__check">check</span>
+      )}
+      {indeterminate && <span className="loc-checkbox__dash" />}
     </div>
   );
 }
