@@ -2,7 +2,7 @@ import React from 'react';
 import LHSDrawer from './LHSDrawer';
 
 export default {
-  title: 'Components/LHSDrawer',
+  title: 'Agent Builder/Organisms/LHS/NodePalette',
   component: LHSDrawer,
   parameters: {
     layout: 'padded',

@@ -189,7 +189,7 @@ function DropdownPanel({ data, style, parentLabel, nodeType, onClose }) {
 }
 
 /* ─── Card Row ─── */
-function CardRow({ label, icon, action, isActive, onClick, onHover, cardRef, nodeType }) {
+export function CardRow({ label, icon, action, isActive, onClick, onHover, cardRef, nodeType }) {
   const handleDragStart = (e) => {
     e.dataTransfer.setData('application/reactflow-type', nodeType);
     e.dataTransfer.setData('application/reactflow-label', label);

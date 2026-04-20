@@ -3,7 +3,17 @@ import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const root = path.resolve(dirname, '..');
+
+// Walk up to find the real project root (with a populated node_modules) — handles git worktrees
+const findRoot = (startDir) => {
+  let dir = startDir;
+  while (dir !== path.dirname(dir)) {
+    if (fs.existsSync(path.join(dir, 'node_modules', 'react'))) return dir;
+    dir = path.dirname(dir);
+  }
+  return startDir;
+};
+const root = findRoot(path.resolve(dirname, '..'));
 
 // Use local elemental workspace if it exists (dev), otherwise fall back to node_modules (CI)
 const localElemental = path.resolve(dirname, '../../elemental');
