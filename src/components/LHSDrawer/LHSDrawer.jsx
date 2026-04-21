@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
-import TabsToggle from '@birdeye/elemental/core/atoms/TabsToggle/index.js';
 import Accordian from '@birdeye/elemental/core/atoms/Accordion/index.js';
 import FormInput from '@birdeye/elemental/core/atoms/FormInput/index.js';
+import AIChatBubble from '../Molecules/AIChatBubble/AIChatBubble';
+import AIPromptBox from '../Molecules/AIPromptBox/AIPromptBox';
+import aiImg from '@birdeye/elemental/core/components/Copilot/assets/icons/aiImg.svg.js';
 import './LHSDrawer.css';
 
 /* ─── Trigger data ─── */
@@ -225,6 +227,13 @@ export function CardRow({ label, icon, action, isActive, onClick, onHover, cardR
 
 const TABS = ['Create with AI', 'Create manually'];
 
+const AI_OPTIONS = [
+  'Replying using templates',
+  'Replying autonomously',
+  'Replying after human approval',
+  'Suggesting replies in dashboard',
+];
+
 export default function LHSDrawer({
   defaultTab = 'Create manually',
   triggerOpen = true,
@@ -297,11 +306,22 @@ export default function LHSDrawer({
 
   return (
     <div className="lhs-drawer" ref={panelRef}>
-      <TabsToggle
-        tabsArray={TABS}
-        selected={activeTab}
-        onTabSelect={setActiveTab}
-      />
+      <div className="lhs-drawer__tabs">
+        {TABS.map((tab) => (
+          <button
+            key={tab}
+            className={`lhs-drawer__tab${activeTab === tab ? ' lhs-drawer__tab--active' : ''}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            <span className="lhs-drawer__tab-label">
+              {tab === 'Create with AI' ? (
+                <>Create with <img src={aiImg} alt="AI" className="lhs-drawer__tab-ai-icon" /></>
+              ) : tab}
+            </span>
+            <span className="lhs-drawer__tab-underline" />
+          </button>
+        ))}
+      </div>
 
       {activeTab === 'Create manually' ? (
         <div className="lhs-drawer__body">
@@ -333,8 +353,14 @@ export default function LHSDrawer({
           </div>
         </div>
       ) : (
-        <div className="lhs-drawer__ai-content">
-          Create with AI content
+        <div className="lhs-drawer__ai-body">
+          <div className="lhs-drawer__ai-chat-area">
+            <AIChatBubble
+              message="Hi! I'm here to help you build your Review response agent. Tell me what you'd like to build"
+              options={AI_OPTIONS}
+            />
+          </div>
+          <AIPromptBox onSend={() => {}} />
         </div>
       )}
 

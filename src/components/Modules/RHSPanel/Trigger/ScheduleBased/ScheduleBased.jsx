@@ -3,8 +3,8 @@ import FormInput from '@birdeye/elemental/core/atoms/FormInput/index.js';
 import TextArea from '@birdeye/elemental/core/atoms/TextArea/index.js';
 import Button from '@birdeye/elemental/core/atoms/Button/index.js';
 import SingleSelect from '@birdeye/elemental/core/atoms/SingleSelect/index.js';
-import CloseIcon from '../../../../Organisms/Panels/RHSSidePanelHeader/icons/close.svg';
-import ExpandAllIcon from '../../../../Organisms/Panels/RHSSidePanelHeader/icons/expand_all.svg';
+import CloseIcon from '../../RHSPanelHeader/icons/close.svg';
+import ExpandAllIcon from '../../RHSPanelHeader/icons/expand_all.svg';
 
 const font = '"Roboto", arial, sans-serif';
 
