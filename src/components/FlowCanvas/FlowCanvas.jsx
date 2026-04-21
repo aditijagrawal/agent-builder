@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useState } from 'react';
 import {
   ReactFlow,
   Handle,
@@ -8,6 +8,7 @@ import {
   ReactFlowProvider,
   useReactFlow,
 } from '@xyflow/react';
+import GraphControls from '../Modules/FlowCanvas/GraphControls/GraphControls';
 import '@xyflow/react/dist/style.css';
 import StartNode from '../StartNode/StartNode';
 import FlowNode from '../FlowNode/FlowNode';
@@ -103,35 +104,6 @@ const EDGE_TYPES = {
   addButton: AddButtonEdge,
 };
 
-/* ─── Toolbar ─── */
-function FlowCanvasToolbar({ orientation = 'vertical', onOrientationChange, onRun }) {
-  return (
-    <div className="flow-canvas__toolbar">
-      <div className="flow-canvas__toolbar-group">
-        <button
-          className={`flow-canvas__toolbar-btn ${orientation === 'vertical' ? 'flow-canvas__toolbar-btn--active' : ''}`}
-          onClick={() => onOrientationChange?.('vertical')}
-        >
-          <span className="material-symbols-outlined">arrow_downward</span>
-        </button>
-        <button
-          className={`flow-canvas__toolbar-btn ${orientation === 'horizontal' ? 'flow-canvas__toolbar-btn--active' : ''}`}
-          onClick={() => onOrientationChange?.('horizontal')}
-        >
-          <span className="material-symbols-outlined">arrow_forward</span>
-        </button>
-      </div>
-      <div className="flow-canvas__toolbar-zoom">
-        <span>100%</span>
-        <span className="material-symbols-outlined">expand_more</span>
-      </div>
-      <button className="flow-canvas__toolbar-run" onClick={onRun}>
-        <span className="material-symbols-outlined">play_arrow</span>
-      </button>
-    </div>
-  );
-}
-
 /* ─── Main FlowCanvas ─── */
 function FlowCanvasInner({
   nodes = [],
@@ -143,7 +115,8 @@ function FlowCanvasInner({
   onRun,
   selectedNodeId,
 }) {
-  const { screenToFlowPosition } = useReactFlow();
+  const { screenToFlowPosition, zoomTo, fitView } = useReactFlow();
+  const [zoom, setZoom] = useState(100);
 
   const defaultEdgeOptions = useMemo(
     () => ({
@@ -190,13 +163,23 @@ function FlowCanvasInner({
     [nodes, selectedNodeId]
   );
 
+  const handleViewportChange = useCallback(({ zoom: z }) => {
+    setZoom(Math.round(z * 100));
+  }, []);
+
   return (
     <div className="flow-canvas">
-      <FlowCanvasToolbar
-        orientation={orientation}
-        onOrientationChange={onOrientationChange}
-        onRun={onRun}
-      />
+      <div className="flow-canvas__toolbar-anchor">
+        <GraphControls
+          orientation={orientation}
+          onOrientationChange={onOrientationChange}
+          onRun={onRun}
+          zoom={zoom}
+          onZoomSelect={(z) => zoomTo(z, { duration: 200 })}
+          onFitView={() => fitView({ padding: 0.3, duration: 200 })}
+        />
+      </div>
+
       <ReactFlow
         nodes={styledNodes}
         edges={edges}
@@ -206,6 +189,7 @@ function FlowCanvasInner({
         onNodeClick={handleNodeClick}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
+        onViewportChange={handleViewportChange}
         fitView
         fitViewOptions={{ padding: 0.3 }}
         proOptions={{ hideAttribution: true }}
