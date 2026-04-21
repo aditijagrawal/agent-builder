@@ -1,6 +1,6 @@
 import React from 'react';
-import RHSSidePanelHeader from '../RHSSidePanelHeader/RHSSidePanelHeader';
-import RHSSidePanelFooter from '../RHSSidePanelFooter/RHSSidePanelFooter';
+import RHSSidePanelHeader from '../../../Modules/RHSPanel/RHSPanelHeader/RHSPanelHeader';
+import RHSSidePanelFooter from '../../../Modules/RHSPanel/RHSPanelFooter/RHSPanelFooter';
 import AgentDetailsBody from './AgentDetailsBody';
 import LLMTaskBody from './LLMTaskBody';
 
