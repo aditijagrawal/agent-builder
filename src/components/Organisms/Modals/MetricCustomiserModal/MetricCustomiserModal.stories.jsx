@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MetricCustomiserModal from './MetricCustomiserModal';
 
 export default {
-  title: 'Agent Builder/Organisms/Metrics/MetricCustomiserModal',
+  title: 'Agent Builder/Organisms/Modals/MetricCustomiserModal',
   component: MetricCustomiserModal,
   parameters: { layout: 'fullscreen' },
 };

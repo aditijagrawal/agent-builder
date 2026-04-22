@@ -11,9 +11,7 @@ export default function TemplateCard({ title, description, onUse }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        flex: '1 0 0',
-        maxWidth: 414,
-        minWidth: '25%',
+        width: '100%',
         height: 256,
         background: hovered ? '#e5e9f0' : '#fff',
         border: '1px solid #e5e9f0',

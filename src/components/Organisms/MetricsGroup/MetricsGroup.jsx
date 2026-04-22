@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MetricCard from '../../Molecules/MetricCard/MetricCard';
-import MetricCustomiserModal from '../Modals/Metrics/MetricCustomiserModal/MetricCustomiserModal';
+import MetricCustomiserModal from '../Modals/MetricCustomiserModal/MetricCustomiserModal';
 
 const PRIMARY_OPTIONS = {
   time: { title: 'Time saved' },

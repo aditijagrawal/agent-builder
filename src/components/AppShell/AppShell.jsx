@@ -32,6 +32,8 @@ function AppShell({
   onBack,
   onPublish,
   publishDisabled = true,
+  showBack = true,
+  pageActions,
   avatarSrc,
   children,
 }) {
@@ -101,21 +103,27 @@ function AppShell({
         {/* Page Header */}
         <div className="app-shell__header">
           <div className="app-shell__header-left">
-            <button className="app-shell__icon-btn" onClick={onBack}>
-              <span className="material-symbols-outlined">arrow_left_alt</span>
-            </button>
+            {showBack && (
+              <button className="app-shell__icon-btn" onClick={onBack}>
+                <span className="material-symbols-outlined">arrow_left_alt</span>
+              </button>
+            )}
             <span className="app-shell__header-title">{pageTitle}</span>
           </div>
           <div className="app-shell__header-right">
-            <button className="app-shell__icon-btn">
-              <span className="material-symbols-outlined">backup</span>
-            </button>
-            <Button
-              theme="primary"
-              label="Publish"
-              disabled={publishDisabled}
-              onClick={onPublish}
-            />
+            {pageActions != null ? pageActions : (
+              <>
+                <button className="app-shell__icon-btn">
+                  <span className="material-symbols-outlined">backup</span>
+                </button>
+                <Button
+                  theme="primary"
+                  label="Publish"
+                  disabled={publishDisabled}
+                  onClick={onPublish}
+                />
+              </>
+            )}
           </div>
         </div>
 
@@ -141,6 +149,8 @@ AppShell.propTypes = {
   onBack: PropTypes.func,
   onPublish: PropTypes.func,
   publishDisabled: PropTypes.bool,
+  showBack: PropTypes.bool,
+  pageActions: PropTypes.node,
   avatarSrc: PropTypes.string,
   children: PropTypes.node,
 };

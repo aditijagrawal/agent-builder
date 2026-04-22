@@ -10,6 +10,7 @@ export default function MetricCard({
   trendPositive = true,
   showConfig = false,
   onConfig,
+  dollarValue,
 }) {
   return (
     <div style={{
@@ -71,6 +72,23 @@ export default function MetricCard({
           >
             info
           </span>
+          {dollarValue && (
+            <span style={{
+              flexShrink: 0,
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '4px 8px',
+              background: '#f1faf0',
+              borderRadius: 4,
+              fontSize: 12,
+              fontWeight: 400,
+              lineHeight: '18px',
+              color: '#377e2c',
+              whiteSpace: 'nowrap',
+            }}>
+              {dollarValue}
+            </span>
+          )}
         </div>
       </div>
 
