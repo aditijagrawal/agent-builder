@@ -1,12 +1,12 @@
 import EmptyWorkspaceTemplate from './EmptyWorkspaceTemplate';
 
 export default {
-  title: 'Agent Builder/Templates/EmptyWorkspaceTemplate',
+  title: 'Agent Builder/Templates/AgentBuilderTemplate',
   component: EmptyWorkspaceTemplate,
   parameters: { layout: 'fullscreen' },
 };
 
-export const Default = {
+export const Empty = {
   args: {
     appTitle: 'Reviews AI',
     pageTitle: 'Review response agent  1',

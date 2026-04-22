@@ -1,7 +1,7 @@
 import AIPromptBox from './AIPromptBox';
 
 export default {
-  title: 'Agent Builder/Molecules/AIPromptBox',
+  title: 'Agent Builder/Molecules/Chat/AIPromptBox',
   component: AIPromptBox,
   parameters: { layout: 'padded' },
 };

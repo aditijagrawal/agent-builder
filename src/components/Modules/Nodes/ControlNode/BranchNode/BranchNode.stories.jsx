@@ -3,6 +3,7 @@ import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
 import FlowNode from '../../../../FlowNode/FlowNode';
 import BranchConfigPanel from '../../../../RHSDrawer/BranchConfigPanel';
+import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
   title: 'Agent Builder/Modules/Nodes/ControlNode/BranchNode',
@@ -33,6 +34,10 @@ export const CanvasPreview = {
       onDelete={() => {}}
     />
   ),
+};
+
+export const ExpandedRHS = {
+  render: () => <ConfigModal />,
 };
 
 export const RHSPreview = {

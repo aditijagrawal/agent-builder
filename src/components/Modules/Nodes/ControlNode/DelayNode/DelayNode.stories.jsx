@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
+import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
   title: 'Agent Builder/Modules/Nodes/ControlNode/DelayNode',
@@ -21,6 +22,10 @@ export const CanvasPreview = {
       DelayNode Canvas Preview — not yet implemented
     </div>
   ),
+};
+
+export const ExpandedRHS = {
+  render: () => <ConfigModal />,
 };
 
 export const RHSPreview = {

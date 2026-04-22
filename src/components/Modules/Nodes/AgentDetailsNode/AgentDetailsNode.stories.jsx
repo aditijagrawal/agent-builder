@@ -1,6 +1,7 @@
 import React from 'react';
 import StartNode from '../../../StartNode/StartNode';
-import RHSDrawer from '../../../RHSDrawer/RHSDrawer';
+import RHSSidePanel from '../../../Organisms/Panels/RHSSidePanel/RHSSidePanel';
+import ConfigModal from '../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
   title: 'Agent Builder/Modules/Nodes/AgentDetailsNode',
@@ -24,18 +25,12 @@ export const CanvasPreview = {
   ),
 };
 
+export const ExpandedRHS = {
+  render: () => <ConfigModal />,
+};
+
 export const RHSPreview = {
   render: () => (
-    <RHSDrawer
-      agentName="Review response agent 1"
-      goals="Respond to customer reviews promptly and professionally."
-      outcomes="Improved customer satisfaction scores."
-      locations={[
-        { id: '1001', name: 'Mountain view, CA' },
-        { id: '1002', name: 'Seattle, WA' },
-        { id: '1004', name: 'Chicago, IL' },
-      ]}
-      moreLocationsCount={100}
-    />
+    <RHSSidePanel variant="agentDetails" onClose={() => {}} onSave={() => {}} />
   ),
 };

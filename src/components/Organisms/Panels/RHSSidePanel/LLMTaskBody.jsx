@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import FormInput from '@birdeye/elemental/core/atoms/FormInput/index.js';
 import TextArea from '@birdeye/elemental/core/atoms/TextArea/index.js';
-import ExpandAllIcon from '../../../Modules/RHSPanel/RHSPanelHeader/icons/expand_all.svg';
-import CloseIcon from '../../../Modules/RHSPanel/RHSPanelHeader/icons/close.svg';
+import ExpandAllIcon from '../../../Molecules/RHSPanel/RHSPanelHeader/icons/expand_all.svg';
+import CloseIcon from '../../../Molecules/RHSPanel/RHSPanelHeader/icons/close.svg';
 import AiWandIcon from './icons/ai_text_grammar_wand.svg';
 import DotsIcon from './icons/dots.svg';
 import AddOutputFieldModal from './AddOutputFieldModal';

@@ -3,6 +3,7 @@ import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
 import FlowNode from '../../../../FlowNode/FlowNode';
 import CustomTaskPanel from '../../../../RHSDrawer/CustomTaskPanel';
+import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
   title: 'Agent Builder/Modules/Nodes/TaskNode/CustomTaskNode',
@@ -34,6 +35,10 @@ export const CanvasPreview = {
       onDelete={() => {}}
     />
   ),
+};
+
+export const ExpandedRHS = {
+  render: () => <ConfigModal />,
 };
 
 export const RHSPreview = {

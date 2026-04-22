@@ -21,7 +21,7 @@ export default function EmptyWorkspaceTemplate({
       onNavChange={setActiveNav}
       publishDisabled
     >
-      <div style={{ display: 'flex', height: '100%' }}>
+      <div style={{ display: 'flex', height: '100%', padding: '8px 0 8px 8px' }}>
         <LHSDrawer />
         <EmptyWorkspace
           onCreateFromScratch={onCreateFromScratch}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
+import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
   title: 'Agent Builder/Modules/Nodes/TriggerNode/EntityTriggerNode',
@@ -34,6 +35,10 @@ export const CanvasPreview = {
       EntityTriggerNode Canvas Preview — not yet implemented
     </div>
   ),
+};
+
+export const ExpandedRHS = {
+  render: () => <ConfigModal />,
 };
 
 export const RHSPreview = {

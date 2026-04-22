@@ -31,6 +31,7 @@ export default function AgentsDashboardTemplate({
   primaryMetricValue = '6h 20m',
   agents,
   onCreateAgent,
+  onUseTemplate,
   avatarSrc,
   activeNavId = 'reviews',
   activeMenuItemId = 'review-response',
@@ -39,6 +40,7 @@ export default function AgentsDashboardTemplate({
   const [activeTab, setActiveTab] = useState(tabs[0]?.id);
   const [currentNavId, setCurrentNavId] = useState(activeNavId);
   const [currentMenuItemId, setCurrentMenuItemId] = useState(activeMenuItemId);
+  const [libraryView, setLibraryView] = useState('grid');
 
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: font, color: '#212121', overflow: 'hidden' }}>
@@ -98,20 +100,41 @@ export default function AgentsDashboardTemplate({
           <span style={{ fontSize: 18, fontWeight: 400, lineHeight: '26px', letterSpacing: '-0.36px', color: '#212121' }}>
             {pageTitle}
           </span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <button style={{ width: 28, height: 28, border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 4 }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#555', lineHeight: 1 }}>search</span>
-            </button>
-            <Button theme="primary" label="Create agent" onClick={onCreateAgent} />
-            <button style={{
-              width: 36, height: 36,
-              border: '1px solid #e5e9f0', borderRadius: 4,
-              background: '#fff', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#555', lineHeight: 1 }}>filter_list</span>
-            </button>
-          </div>
+
+          {activeTab === 'library' ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <button style={{ width: 36, height: 36, border: '1px solid #e5e9f0', borderRadius: 4, background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#555', lineHeight: 1 }}>search</span>
+              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, height: 36, border: '1px solid #e5e9f0', borderRadius: 4, background: '#fff', padding: '0 8px' }}>
+                <button
+                  onClick={() => setLibraryView('grid')}
+                  style={{ width: 24, height: 24, border: 'none', borderRadius: 4, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', background: libraryView === 'grid' ? '#e5e9f0' : '#fff' }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: 16, color: '#212121', lineHeight: 1 }}>grid_view</span>
+                </button>
+                <button
+                  onClick={() => setLibraryView('table')}
+                  style={{ width: 24, height: 24, border: 'none', borderRadius: 4, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', background: libraryView === 'table' ? '#e5e9f0' : '#fff' }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: 16, color: '#212121', lineHeight: 1 }}>table_rows</span>
+                </button>
+              </div>
+              <button style={{ width: 36, height: 36, border: '1px solid #e5e9f0', borderRadius: 4, background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#555', lineHeight: 1 }}>filter_list</span>
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <button style={{ width: 28, height: 28, border: 'none', background: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 4 }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#555', lineHeight: 1 }}>search</span>
+              </button>
+              <Button theme="primary" label="Create agent" onClick={onCreateAgent} />
+              <button style={{ width: 36, height: 36, border: '1px solid #e5e9f0', borderRadius: 4, background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: 20, color: '#555', lineHeight: 1 }}>filter_list</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -144,7 +167,7 @@ export default function AgentsDashboardTemplate({
 
           {activeTab === 'library' && (
             <div style={{ padding: 24 }}>
-              <TemplateLibrary variant="grid" onUseTemplate={onUseCard} />
+              <TemplateLibrary variant={libraryView === 'table' ? 'list' : 'grid'} onUseTemplate={onUseTemplate} />
             </div>
           )}
         </div>
@@ -160,6 +183,7 @@ AgentsDashboardTemplate.propTypes = {
   primaryMetricValue: PropTypes.string,
   agents: PropTypes.array,
   onCreateAgent: PropTypes.func,
+  onUseTemplate: PropTypes.func,
   avatarSrc: PropTypes.string,
   activeNavId: PropTypes.string,
   activeMenuItemId: PropTypes.string,

@@ -1,7 +1,7 @@
 import ConfigModalFooter from './ConfigModalFooter';
 
 export default {
-  title: 'Agent Builder/Modules/ExpandedConfigModal/ConfigModalFooter',
+  title: 'Agent Builder/Molecules/Expanded RHS/ExpandedRHSFooter',
   component: ConfigModalFooter,
 };
 
