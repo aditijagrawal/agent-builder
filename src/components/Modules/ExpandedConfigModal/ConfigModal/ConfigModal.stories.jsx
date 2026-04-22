@@ -1,7 +1,7 @@
 import ConfigModal from './ConfigModal';
 
 export default {
-  title: 'Agent Builder/Modules/ExpandedConfigModal/ConfigModal',
+  title: 'Agent Builder/Organisms/Modals/RHS/ExpandedRHSModal',
   component: ConfigModal,
 };
 

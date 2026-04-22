@@ -1,7 +1,7 @@
 import RHSPanelFooter from './RHSPanelFooter';
 
 export default {
-  title: 'Agent Builder/Modules/RHSPanel/RHSPanelFooter',
+  title: 'Agent Builder/Molecules/RHSPanel/RHSPanelFooter',
   component: RHSPanelFooter,
 };
 

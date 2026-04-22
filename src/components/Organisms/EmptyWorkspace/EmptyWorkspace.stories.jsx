@@ -2,7 +2,7 @@ import React from 'react';
 import EmptyWorkspace from './EmptyWorkspace';
 
 export default {
-  title: 'Agent Builder/Organisms/EmptyWorkspace',
+  title: 'Agent Builder/Modules/EmptyWorkspace',
   component: EmptyWorkspace,
   parameters: { layout: 'fullscreen' },
 };

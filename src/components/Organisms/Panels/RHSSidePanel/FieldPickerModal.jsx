@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '@birdeye/elemental/core/atoms/Modal/index.js';
 import { gray900, gray90, gray2000, white } from '@birdeye/elemental/core/sass/js/colors.js';
-import CloseIcon from '../../../Modules/RHSPanel/RHSPanelHeader/icons/close.svg';
+import CloseIcon from '../../../Molecules/RHSPanel/RHSPanelHeader/icons/close.svg';
 
 const font = '"Roboto", arial, sans-serif';
 

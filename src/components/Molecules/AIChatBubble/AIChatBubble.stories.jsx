@@ -2,7 +2,7 @@ import React from 'react';
 import AIChatBubble from './AIChatBubble';
 
 export default {
-  title: 'Agent Builder/Molecules/AIChatBubble',
+  title: 'Agent Builder/Molecules/Chat/AIChatBubble',
   component: AIChatBubble,
   parameters: { layout: 'padded' },
 };

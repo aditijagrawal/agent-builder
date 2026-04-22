@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import FormInput from '@birdeye/elemental/core/atoms/FormInput/index.js';
-import Button from '@birdeye/elemental/core/atoms/Button/index.js';
 import { Select, SelectItem } from '@birdeye/elemental/core/atoms/Select/index.js';
-import './RHSDrawer.css';
+import RHSPanelHeader from '../Molecules/RHSPanel/RHSPanelHeader/RHSPanelHeader';
+import RHSPanelFooter from '../Molecules/RHSPanel/RHSPanelFooter/RHSPanelFooter';
 
 const FIELD_OPTIONS = ['1.Review.sentiment', '2.Review.rating', '3.identified_team', '4.Review.source', '5.Review.language'];
 const OPERATOR_OPTIONS = ['is equal to', 'is not equal to', 'is greater than', 'is less than', 'contains', 'does not contain'];
@@ -66,148 +66,107 @@ export default function BranchConfigPanel({
     updateGroups(updated);
   };
 
+  const font = '"Roboto", arial, sans-serif';
+
   return (
-    <div className="rhs-drawer">
-      <div className="rhs-drawer__header">
-        <span className="rhs-drawer__header-title">Branch</span>
-        <div className="rhs-drawer__header-actions">
-          <button className="rhs-drawer__icon-btn">
-            <span className="material-symbols-outlined">play_arrow</span>
-          </button>
-          <button className="rhs-drawer__icon-btn">
-            <span className="material-symbols-outlined">open_in_full</span>
-          </button>
-          <button className="rhs-drawer__icon-btn" onClick={onClose}>
-            <span className="material-symbols-outlined">close</span>
-          </button>
-        </div>
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', width: 390, height: '100%', background: '#ffffff', borderLeft: '1px solid #e5e9f0', fontFamily: font }}>
+      <RHSPanelHeader
+        title="Branch"
+        showActions
+        onPreview={onClose}
+        onExpand={onClose}
+        onClose={onClose}
+      />
 
-      <div className="rhs-drawer__body">
-        <div className="rhs-drawer__field">
-          <FormInput
-            name="branchName"
-            type="text"
-            label="Branch name *"
-            value={branchName}
-            placeholder="Enter name"
-            onChange={(e, value) => onChange?.('branchName', value)}
-          />
-        </div>
+      <div style={{ flex: 1, overflowY: 'auto', padding: '16px 15px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <FormInput
+          name="branchName"
+          type="text"
+          label="Branch name *"
+          value={branchName}
+          placeholder="Enter name"
+          onChange={(e, value) => onChange?.('branchName', value)}
+        />
 
-        <div className="rhs-drawer__textarea">
-          <label>
-            Description<span className="rhs-drawer__required"> *</span>
-          </label>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span style={{ fontSize: 12, fontWeight: 400, lineHeight: '18px', color: '#212121', fontFamily: font }}>Description</span>
+            <span style={{ fontSize: 12, lineHeight: '18px', color: '#de1b0c', fontFamily: font }}>*</span>
+          </div>
           <textarea
             value={description}
             placeholder="Enter description"
             onChange={(e) => onChange?.('description', e.target.value)}
+            style={{ width: '100%', height: 80, border: '1px solid #e5e9f0', borderRadius: 4, padding: '8px 12px', fontSize: 14, fontFamily: font, resize: 'none', boxSizing: 'border-box', outline: 'none' }}
           />
         </div>
 
-        <div className="rhs-drawer__section">
-          <div className="rhs-drawer__section-label">
-            Based on<span className="rhs-drawer__required"> *</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span style={{ fontSize: 12, fontWeight: 400, lineHeight: '18px', color: '#212121', fontFamily: font }}>Based on</span>
+            <span style={{ fontSize: 12, lineHeight: '18px', color: '#de1b0c', fontFamily: font }}>*</span>
           </div>
-          <div className="rhs-drawer__stacked-select">
-            <Select
-              value={basedOn}
-              onChange={(e, val) => onChange?.('basedOn', val)}
-              placeHolder="Select..."
-              variant="outlined"
-            >
-              {BASED_ON_OPTIONS.map((opt) => (
-                <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-              ))}
-            </Select>
-          </div>
+          <Select value={basedOn} onChange={(e, val) => onChange?.('basedOn', val)} placeHolder="Select..." variant="outlined">
+            {BASED_ON_OPTIONS.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+          </Select>
         </div>
 
-        <div className="rhs-drawer__section">
-          <div className="rhs-drawer__section-label">Filter conditions</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <span style={{ fontSize: 12, fontWeight: 400, lineHeight: '18px', color: '#212121', fontFamily: font }}>Filter conditions</span>
 
           {conditionGroups.map((group, groupIdx) => (
             <React.Fragment key={groupIdx}>
               {groupIdx > 0 && (
-                <div className="rhs-drawer__or-separator">
-                  <span className="rhs-drawer__or-text">OR</span>
-                  <span className="material-symbols-outlined rhs-drawer__or-chevron">expand_more</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 0' }}>
+                  <span style={{ fontSize: 12, color: '#8f8f8f', fontFamily: font }}>OR</span>
+                  <i className="icon_phoenix-expand_more" style={{ fontSize: 16, color: '#8f8f8f' }} />
                 </div>
               )}
-              <div className="rhs-drawer__conditions-card">
+              <div style={{ border: '1px solid #e5e9f0', borderRadius: 4, padding: '12px 10px', display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {group.map((cond, condIdx) => (
                   <React.Fragment key={condIdx}>
-                    {/* Field tag row */}
-                    <div className="rhs-drawer__tag-select">
-                      <div className="rhs-drawer__tag-chip">
-                        <span className="rhs-drawer__tag-icon">{'{x}'}</span>
-                        <span className="rhs-drawer__tag-label">{cond.field || 'Select field'}</span>
-                        <button
-                          className="rhs-drawer__tag-remove"
-                          onClick={() => removeFieldTag(groupIdx, condIdx)}
-                        >
-                          <span className="material-symbols-outlined">close</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 4, border: '1px solid #e5e9f0', borderRadius: 4, padding: '0 8px', height: 28, flex: 1, minWidth: 0 }}>
+                        <span style={{ fontSize: 12, color: '#555555', fontFamily: font }}>{'{x}'}</span>
+                        <span style={{ fontSize: 12, color: '#212121', fontFamily: font, flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{cond.field || 'Select field'}</span>
+                        <button onClick={() => removeFieldTag(groupIdx, condIdx)} style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                          <i className="icon_phoenix-close" style={{ fontSize: 16, color: '#8f8f8f' }} />
                         </button>
                       </div>
-                      <div className="rhs-drawer__tag-select-dropdown">
-                        <Select
-                          value={cond.field || undefined}
-                          onChange={(e, val) => handleConditionChange(groupIdx, condIdx, 'field', val)}
-                          placeHolder=""
-                          variant="outlined"
-                        >
-                          {FIELD_OPTIONS.map((opt) => (
-                            <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                          ))}
+                      <div style={{ width: 120, flexShrink: 0 }}>
+                        <Select value={cond.field || undefined} onChange={(e, val) => handleConditionChange(groupIdx, condIdx, 'field', val)} placeHolder="" variant="outlined">
+                          {FIELD_OPTIONS.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
                         </Select>
                       </div>
                     </div>
-
-                    {/* Operator */}
-                    <div className="rhs-drawer__stacked-select">
-                      <Select
-                        value={cond.operator}
-                        onChange={(e, val) => handleConditionChange(groupIdx, condIdx, 'operator', val)}
-                        placeHolder="Select operator"
-                        variant="outlined"
-                      >
-                        {OPERATOR_OPTIONS.map((opt) => (
-                          <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                        ))}
-                      </Select>
-                    </div>
-
-                    {/* Value */}
-                    <div className="rhs-drawer__stacked-input">
-                      <input
-                        type="text"
-                        className="rhs-drawer__condition-value-input"
-                        value={cond.value}
-                        placeholder="Enter value"
-                        onChange={(e) => handleConditionChange(groupIdx, condIdx, 'value', e.target.value)}
-                      />
-                    </div>
+                    <Select value={cond.operator} onChange={(e, val) => handleConditionChange(groupIdx, condIdx, 'operator', val)} placeHolder="Select operator" variant="outlined">
+                      {OPERATOR_OPTIONS.map((opt) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+                    </Select>
+                    <input
+                      type="text"
+                      value={cond.value}
+                      placeholder="Enter value"
+                      onChange={(e) => handleConditionChange(groupIdx, condIdx, 'value', e.target.value)}
+                      style={{ width: '100%', height: 36, border: '1px solid #e5e9f0', borderRadius: 4, padding: '0 12px', fontSize: 14, fontFamily: font, outline: 'none', boxSizing: 'border-box' }}
+                    />
                   </React.Fragment>
                 ))}
               </div>
             </React.Fragment>
           ))}
 
-          <button className="rhs-drawer__add-condition" onClick={addCondition}>
-            <span className="material-symbols-outlined">add_circle</span>
-            <span>Add condition</span>
+          <button onClick={addCondition} style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}>
+            <i className="icon_phoenix-add_circle" style={{ fontSize: 20, color: '#1976d2' }} />
+            <span style={{ fontSize: 12, lineHeight: '18px', color: '#1976d2', fontFamily: font }}>Add condition</span>
           </button>
         </div>
 
-        <button className="rhs-drawer__advanced-link">
+        <button style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontSize: 12, color: '#1976d2', fontFamily: font, textAlign: 'left' }}>
           Advanced filters
         </button>
       </div>
 
-      <div className="rhs-drawer__footer">
-        <Button theme="primary" label="Save" onClick={onSave} />
-      </div>
+      <RHSPanelFooter onSave={onSave} />
     </div>
   );
 }

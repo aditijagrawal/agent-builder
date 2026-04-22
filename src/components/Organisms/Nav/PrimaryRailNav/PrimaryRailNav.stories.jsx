@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PrimaryRailNav from './PrimaryRailNav';
 
 export default {
-  title: 'Agent Builder/Molecules/PrimaryRailNav',
+  title: 'Agent Builder/Molecules/Navigation/PrimaryRailNav',
   component: PrimaryRailNav,
 };
 

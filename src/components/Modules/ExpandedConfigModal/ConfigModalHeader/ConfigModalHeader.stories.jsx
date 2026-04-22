@@ -1,7 +1,7 @@
 import ConfigModalHeader from './ConfigModalHeader';
 
 export default {
-  title: 'Agent Builder/Modules/ExpandedConfigModal/ConfigModalHeader',
+  title: 'Agent Builder/Molecules/Expanded RHS/ExpandedRHSHeader',
   component: ConfigModalHeader,
 };
 

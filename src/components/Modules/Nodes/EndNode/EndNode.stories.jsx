@@ -1,5 +1,6 @@
 import React from 'react';
 import FlowNode from '../../../FlowNode/FlowNode';
+import ConfigModal from '../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
   title: 'Agent Builder/Modules/Nodes/EndNode',
@@ -16,6 +17,10 @@ export const LHSPreview = {
 
 export const CanvasPreview = {
   render: () => <FlowNode type="end" />,
+};
+
+export const ExpandedRHS = {
+  render: () => <ConfigModal />,
 };
 
 export const RHSPreview = {

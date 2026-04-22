@@ -1,7 +1,7 @@
 import RHSPanelHeader from './RHSPanelHeader';
 
 export default {
-  title: 'Agent Builder/Modules/RHSPanel/RHSPanelHeader',
+  title: 'Agent Builder/Molecules/RHSPanel/RHSPanelHeader',
   component: RHSPanelHeader,
 };
 

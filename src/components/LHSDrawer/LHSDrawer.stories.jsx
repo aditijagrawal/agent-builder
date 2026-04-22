@@ -2,7 +2,7 @@ import React from 'react';
 import LHSDrawer from './LHSDrawer';
 
 export default {
-  title: 'Agent Builder/Organisms/LHS/NodePalette',
+  title: 'Agent Builder/Organisms/Panels/LHS',
   component: LHSDrawer,
   parameters: {
     layout: 'padded',
@@ -19,7 +19,7 @@ export default {
   },
 };
 
-export const Default = {
+export const CreateManually = {
   args: {
     defaultTab: 'Create manually',
     triggerOpen: true,
@@ -31,14 +31,5 @@ export const Default = {
 export const CreateWithAI = {
   args: {
     defaultTab: 'Create with AI',
-  },
-};
-
-export const AllCollapsed = {
-  args: {
-    defaultTab: 'Create manually',
-    triggerOpen: false,
-    tasksOpen: false,
-    controlsOpen: false,
   },
 };

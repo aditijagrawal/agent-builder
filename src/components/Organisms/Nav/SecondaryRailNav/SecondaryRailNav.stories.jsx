@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SecondaryRailNav from './SecondaryRailNav';
 
 export default {
-  title: 'Agent Builder/Molecules/SecondaryRailNav',
+  title: 'Agent Builder/Molecules/Navigation/SecondaryRailNav',
   component: SecondaryRailNav,
 };
 
