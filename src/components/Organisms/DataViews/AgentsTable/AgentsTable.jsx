@@ -13,7 +13,6 @@ function StatusCell({ status }) {
   return (
     <Chip
       label={status}
-      variant="tonal"
       colorType={STATUS_COLOR[status] || 'grey'}
       size="small"
     />
@@ -24,7 +23,17 @@ function LocationCell({ count }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
       <span style={{ fontSize: 13, color: '#212121' }}>{count}</span>
-      <span className="material-symbols-outlined" style={{ fontSize: 16, color: '#555', lineHeight: 1 }}>
+      <span
+        className="material-symbols-outlined"
+        style={{
+          fontFamily: "'Material Symbols Outlined'",
+          fontStyle: 'normal',
+          fontSize: 16,
+          color: '#555',
+          lineHeight: 1,
+          fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20",
+        }}
+      >
         expand_more
       </span>
     </div>
@@ -39,13 +48,13 @@ const DEFAULT_AGENTS = [
 ];
 
 const COLUMNS = [
-  { value: 'name',            tableHead: 'Agent name',            enabled: true, width: 320, enableSorting: true },
-  { value: 'status',          tableHead: 'Status',                enabled: true, width: 110, enableSorting: true },
-  { value: 'reviewsResponded',tableHead: 'Reviews responded',     enabled: true, width: 160, enableSorting: true },
-  { value: 'responseRate',    tableHead: 'Response rate',         enabled: true, width: 130, enableSorting: true },
-  { value: 'avgResponseTime', tableHead: 'Average response time', enabled: true, width: 170, enableSorting: true },
-  { value: 'timeSaved',       tableHead: 'Time saved',            enabled: true, width: 120, enableSorting: true },
-  { value: 'locations',       tableHead: 'Locations',             enabled: true, width: 110, enableSorting: true },
+  { value: 'name',            tableHead: 'Agent name',            enabled: true, width: 320, enableSorting: true, align: 'left' },
+  { value: 'status',          tableHead: 'Status',                enabled: true, width: 110, enableSorting: true, align: 'left' },
+  { value: 'reviewsResponded',tableHead: 'Reviews responded',     enabled: true, width: 160, enableSorting: true, align: 'left' },
+  { value: 'responseRate',    tableHead: 'Response rate',         enabled: true, width: 130, enableSorting: true, align: 'left' },
+  { value: 'avgResponseTime', tableHead: 'Average response time', enabled: true, width: 170, enableSorting: true, align: 'left' },
+  { value: 'timeSaved',       tableHead: 'Time saved',            enabled: true, width: 120, enableSorting: true, align: 'left' },
+  { value: 'locations',       tableHead: 'Locations',             enabled: true, width: 110, enableSorting: true, align: 'left' },
 ];
 
 function buildTableData(agents) {

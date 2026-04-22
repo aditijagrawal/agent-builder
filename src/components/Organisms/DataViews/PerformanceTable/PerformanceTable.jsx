@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import TableContainer from '@birdeye/elemental/core/components/TableContainer/index.js';
 
 const COLUMNS = [
-  { value: 'location',        tableHead: 'Location',              enabled: true, width: 350, enableSorting: true },
-  { value: 'reviewsResponded',tableHead: 'Reviews responded',     enabled: true, width: 230, enableSorting: true },
-  { value: 'responseRate',    tableHead: 'Response rate',         enabled: true, width: 230, enableSorting: true },
-  { value: 'avgResponseTime', tableHead: 'Average response time', enabled: true, width: 230, enableSorting: true },
-  { value: 'timeSaved',       tableHead: 'Time saved',            enabled: true, width: 230, enableSorting: true },
+  { value: 'location',        tableHead: 'Location',              enabled: true, width: 350, enableSorting: true, align: 'left' },
+  { value: 'reviewsResponded',tableHead: 'Reviews responded',     enabled: true, width: 230, enableSorting: true, align: 'left' },
+  { value: 'responseRate',    tableHead: 'Response rate',         enabled: true, width: 230, enableSorting: true, align: 'left' },
+  { value: 'avgResponseTime', tableHead: 'Average response time', enabled: true, width: 230, enableSorting: true, align: 'left' },
+  { value: 'timeSaved',       tableHead: 'Time saved',            enabled: true, width: 230, enableSorting: true, align: 'left' },
 ];
 
 const DEFAULT_ROWS = [
