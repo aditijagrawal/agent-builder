@@ -59,3 +59,16 @@ export const Full = {
     onConfig: () => {},
   },
 };
+
+export const WithDollarValue = {
+  args: {
+    value: '5h',
+    title: 'Time saved',
+    showTrend: true,
+    trend: '+1.3%',
+    trendPositive: true,
+    showConfig: true,
+    onConfig: () => {},
+    dollarValue: '$3,820',
+  },
+};

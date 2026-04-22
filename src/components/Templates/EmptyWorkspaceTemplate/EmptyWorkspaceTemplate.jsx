@@ -9,6 +9,7 @@ export default function EmptyWorkspaceTemplate({
   activeNavId = 'reviews',
   onCreateFromScratch,
   onUseTemplate,
+  onSeeMore,
 }) {
   const [activeNav, setActiveNav] = useState(activeNavId);
 
@@ -25,6 +26,7 @@ export default function EmptyWorkspaceTemplate({
         <EmptyWorkspace
           onCreateFromScratch={onCreateFromScratch}
           onUseTemplate={onUseTemplate}
+          onSeeMore={onSeeMore}
         />
       </div>
     </AppShell>

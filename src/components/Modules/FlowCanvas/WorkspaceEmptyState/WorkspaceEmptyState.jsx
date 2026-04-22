@@ -68,7 +68,7 @@ function AiCardOverlay() {
   );
 }
 
-export default function WorkspaceEmptyState({ onCreateFromScratch, onUseTemplate }) {
+export default function WorkspaceEmptyState({ onCreateFromScratch, onUseTemplate, onSeeMore }) {
   const [libraryOpen, setLibraryOpen] = useState(false);
 
   return (
@@ -112,7 +112,7 @@ export default function WorkspaceEmptyState({ onCreateFromScratch, onUseTemplate
 
       {libraryOpen && (
         <div style={{ flexShrink: 0, width: '100%', maxWidth: 980 }}>
-          <TemplateLibrary onUseTemplate={onUseTemplate} />
+          <TemplateLibrary variant="see-more" onUseTemplate={onUseTemplate} onSeeMore={onSeeMore} />
         </div>
       )}
     </div>
