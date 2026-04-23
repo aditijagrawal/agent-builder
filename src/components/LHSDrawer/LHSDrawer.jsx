@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import Accordian from '@birdeye/elemental/core/atoms/Accordion/index.js';
 import FormInput from '@birdeye/elemental/core/atoms/FormInput/index.js';
+import NodeType from '../Organisms/Accordion/NodeType/NodeType';
 import AIChatBubble from '../Molecules/AIChatBubble/AIChatBubble';
 import AIPromptBox from '../Molecules/AIPromptBox/AIPromptBox';
 import aiImg from '@birdeye/elemental/core/components/Copilot/assets/icons/aiImg.svg.js';
@@ -74,7 +74,7 @@ const TRIGGER_SUB_ITEMS = {
   },
 };
 
-const TRIGGER_CARDS = [
+export const TRIGGER_CARDS = [
   { label: 'Schedule-based', icon: 'schedule', action: 'drag' },
   { label: 'Reviews', icon: 'grade', action: 'chevron' },
   { label: 'Inbox', icon: 'sms', action: 'chevron' },
@@ -140,7 +140,7 @@ const TASK_SUB_ITEMS = {
   },
 };
 
-const TASK_CARDS = [
+export const TASK_CARDS = [
   { label: 'Custom', icon: 'dashboard_customize', action: 'drag' },
   { label: 'Review', icon: 'grade', action: 'chevron', subKey: 'Review' },
   { label: 'Ticketing', icon: 'confirmation_number', action: 'chevron', subKey: 'Ticketing' },
@@ -151,9 +151,11 @@ const TASK_CARDS = [
 ];
 
 /* ─── Controls data ─── */
-const CONTROL_CARDS = [
-  { label: 'Branch', icon: 'account_tree', action: 'drag' },
-  { label: 'Delay', icon: 'schedule', action: 'drag' },
+export const CONTROL_CARDS = [
+  { label: 'Branch', icon: 'account_tree', action: 'drag', nodeType: 'branch' },
+  { label: 'Delay', icon: 'schedule', action: 'drag', nodeType: 'delay' },
+  { label: 'Parallel tasks', icon: 'splitscreen_add', action: 'drag', nodeType: 'parallel' },
+  { label: 'Loop', icon: 'repeat', action: 'drag', nodeType: 'loop' },
 ];
 
 /* ─── All sub-items merged ─── */
@@ -281,7 +283,7 @@ export default function LHSDrawer({
               label={card.label}
               icon={card.icon}
               action={card.action}
-              nodeType={nodeType}
+              nodeType={card.nodeType || nodeType}
               isActive={expandedCard === subKey && expandedSection === section}
               onClick={() => {}}
               onHover={() => handleCardHover(card, section, card.subKey)}
@@ -338,18 +340,9 @@ export default function LHSDrawer({
           </div>
 
           <div className="lhs-drawer__sections" onMouseLeave={closeDropdown}>
-            <Accordian
-              items={[{ title: 'Trigger', content: triggerContent }]}
-              isDefaultOpen={triggerOpen}
-            />
-            <Accordian
-              items={[{ title: 'Tasks', content: tasksContent }]}
-              isDefaultOpen={tasksOpen}
-            />
-            <Accordian
-              items={[{ title: 'Controls', content: controlsContent }]}
-              isDefaultOpen={controlsOpen}
-            />
+            <NodeType title="Trigger" content={triggerContent} isDefaultOpen={triggerOpen} />
+            <NodeType title="Tasks" content={tasksContent} isDefaultOpen={tasksOpen} />
+            <NodeType title="Controls" content={controlsContent} isDefaultOpen={controlsOpen} />
           </div>
         </div>
       ) : (

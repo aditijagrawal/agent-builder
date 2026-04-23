@@ -97,6 +97,28 @@
   height: 16px;
 }
 
+.flow-node__icon-circle--parallel {
+  background: #e0f2f1;
+}
+
+.flow-node__icon-circle--parallel .material-symbols-outlined {
+  color: #00695c;
+  font-size: 16px !important;
+  width: 16px;
+  height: 16px;
+}
+
+.flow-node__icon-circle--loop {
+  background: #f3e5f5;
+}
+
+.flow-node__icon-circle--loop .material-symbols-outlined {
+  color: #7b1fa2;
+  font-size: 16px !important;
+  width: 16px;
+  height: 16px;
+}
+
 /* ─── Title ─── */
 .flow-node__title {
   font-size: 14px;
