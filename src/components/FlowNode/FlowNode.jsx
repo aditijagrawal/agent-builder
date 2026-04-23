@@ -6,6 +6,8 @@ const ICON_CONFIG = {
   trigger: { icon: 'bolt', modifier: 'trigger' },
   task: { icon: 'task_alt', modifier: 'task' },
   branch: { icon: 'account_tree', modifier: 'branch' },
+  parallel: { icon: 'splitscreen_add', modifier: 'parallel' },
+  loop: { icon: 'repeat', modifier: 'loop' },
 };
 
 function CardNode({

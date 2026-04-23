@@ -3,14 +3,8 @@ import AppShell from '../AppShell/AppShell';
 import LHSDrawer from '../LHSDrawer/LHSDrawer';
 import FlowCanvas from '../FlowCanvas/FlowCanvas';
 import RHSDrawer from '../RHSDrawer/RHSDrawer';
-import TriggerConfigPanel from '../RHSDrawer/TriggerConfigPanel';
-import CustomTaskPanel from '../RHSDrawer/CustomTaskPanel';
-import BranchConfigPanel from '../RHSDrawer/BranchConfigPanel';
 import './AgentBuilder.css';
 
-const NODE_WIDTH = 400;
-const START_NODE_WIDTH = 340;
-const END_NODE_WIDTH = 60;
 const START_NODE_ID = '__start__';
 const END_NODE_ID = '__end__';
 
@@ -262,53 +256,6 @@ export default function AgentBuilder({
     }
 
     if (!selectedNode || !currentDetails) return null;
-
-    const { flowType } = selectedNode;
-
-    // Trigger → TriggerConfigPanel
-    if (flowType === 'trigger') {
-      return (
-        <TriggerConfigPanel
-          triggerName={currentDetails.triggerName ?? ''}
-          description={currentDetails.description ?? ''}
-          conditions={currentDetails.conditions}
-          onClose={handleCloseDrawer}
-          onSave={handleCloseDrawer}
-          onChange={handleDetailChange}
-        />
-      );
-    }
-
-    // Branch → BranchConfigPanel
-    if (flowType === 'branch') {
-      return (
-        <BranchConfigPanel
-          branchName={currentDetails.branchName ?? ''}
-          description={currentDetails.description ?? ''}
-          basedOn={currentDetails.basedOn || 'Conditions'}
-          conditionGroups={currentDetails.conditionGroups}
-          onClose={handleCloseDrawer}
-          onSave={handleCloseDrawer}
-          onChange={handleDetailChange}
-        />
-      );
-    }
-
-    // Task (Custom) → CustomTaskPanel
-    if (flowType === 'task' && selectedNode.data?.hasAiIcon) {
-      return (
-        <CustomTaskPanel
-          taskName={currentDetails.taskName ?? ''}
-          description={currentDetails.description ?? ''}
-          llmModel={currentDetails.llmModel || 'Fast'}
-          systemPrompt={currentDetails.systemPrompt || ''}
-          userPrompt={currentDetails.userPrompt || ''}
-          onClose={handleCloseDrawer}
-          onSave={handleCloseDrawer}
-          onChange={handleDetailChange}
-        />
-      );
-    }
 
     // Default task → Agent details style panel
     return (

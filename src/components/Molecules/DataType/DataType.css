@@ -6,7 +6,7 @@
   border: 1px solid;
   background: #fff;
   overflow: hidden;
-  padding: 1px;
+  padding: 1px 4px 1px 1px;
   font-family: 'Inter', sans-serif;
 }
 
@@ -61,42 +61,3 @@
   overflow: hidden;
 }
 
-/* Variable — blue */
-.data-type--variable {
-  border-color: #d1e5f9;
-}
-.data-type--variable .data-type__icon-container {
-  background: #ecf5fd;
-  border-right-color: #d1e5f9;
-  color: #1a73e8;
-}
-
-/* Document — green */
-.data-type--document {
-  border-color: #dcf1d9;
-}
-.data-type--document .data-type__icon-container {
-  background: #f1faf0;
-  border-right-color: #dcf1d9;
-  color: #2e7d32;
-}
-
-/* Link — pink/magenta */
-.data-type--link {
-  border-color: rgba(152, 0, 109, 0.2);
-}
-.data-type--link .data-type__icon-container {
-  background: #ffe8f8;
-  border-right-color: rgba(152, 0, 109, 0.2);
-  color: #98006d;
-}
-
-/* Tool — gray */
-.data-type--tool {
-  border-color: #ccc;
-}
-.data-type--tool .data-type__icon-container {
-  background: #efefef;
-  border-right-color: #ccc;
-  color: #555;
-}
