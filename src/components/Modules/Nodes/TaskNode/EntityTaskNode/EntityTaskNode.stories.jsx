@@ -1,10 +1,12 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
+import CanvasCard from '../../../../Molecules/Canvas/CanvasCard/CanvasCard';
 import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
+
 export default {
-  title: 'Agent Builder/Modules/Nodes/TaskNode/EntityTaskNode',
+  title: 'Agent Builder/Modules/Nodes/Task/EntityTask',
   parameters: { layout: 'centered' },
 };
 
@@ -29,9 +31,15 @@ export const LHSPreview = {
 
 export const CanvasPreview = {
   render: () => (
-    <div style={{ padding: 24, color: '#9e9e9e', fontFamily: 'sans-serif', fontSize: 14 }}>
-      EntityTaskNode Canvas Preview — not yet implemented
-    </div>
+    <CanvasCard
+      nodeType="task"
+      label="Task"
+      hasToggle
+      toggleEnabled
+      stepNumber={2}
+      title="Send a review response"
+      description="Reviews: Post a reply to the selected review"
+    />
   ),
 };
 
@@ -40,9 +48,5 @@ export const ExpandedRHS = {
 };
 
 export const RHSPreview = {
-  render: () => (
-    <div style={{ padding: 24, color: '#9e9e9e', fontFamily: 'sans-serif', fontSize: 14 }}>
-      EntityTaskNode RHS Preview — not yet implemented
-    </div>
-  ),
+  render: () => null,
 };

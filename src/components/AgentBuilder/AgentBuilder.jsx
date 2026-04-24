@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import AppShell from '../AppShell/AppShell';
 import LHSDrawer from '../LHSDrawer/LHSDrawer';
 import FlowCanvas from '../FlowCanvas/FlowCanvas';
-import RHSDrawer from '../RHSDrawer/RHSDrawer';
+import RHS from '../Organisms/Panels/RHS/RHS';
 import './AgentBuilder.css';
 
 const START_NODE_ID = '__start__';
@@ -237,37 +237,33 @@ export default function AgentBuilder({
         moreLocationsCount: 1,
       };
       return (
-        <RHSDrawer
-          agentName={startDetails.agentName}
-          goals={startDetails.goals}
-          outcomes={startDetails.outcomes}
-          locations={startDetails.locations}
-          moreLocationsCount={startDetails.moreLocationsCount}
+        <RHS
+          variant="agentDetails"
+          title="Agent details"
+          bodyProps={{
+            values: startDetails,
+            onChange: (field, value) => {
+              setNodeDetails((prev) => ({
+                ...prev,
+                [START_NODE_ID]: { ...startDetails, [field]: value },
+              }));
+            },
+          }}
           onClose={handleCloseDrawer}
           onSave={handleCloseDrawer}
-          onChange={(field, value) => {
-            setNodeDetails((prev) => ({
-              ...prev,
-              [START_NODE_ID]: { ...startDetails, [field]: value },
-            }));
-          }}
         />
       );
     }
 
     if (!selectedNode || !currentDetails) return null;
 
-    // Default task → Agent details style panel
     return (
-      <RHSDrawer
-        agentName={currentDetails.agentName}
-        goals={currentDetails.goals}
-        outcomes={currentDetails.outcomes}
-        locations={currentDetails.locations || []}
-        moreLocationsCount={currentDetails.moreLocationsCount || 0}
+      <RHS
+        variant="agentDetails"
+        title="Agent details"
+        bodyProps={{ values: currentDetails, onChange: handleDetailChange }}
         onClose={handleCloseDrawer}
         onSave={handleCloseDrawer}
-        onChange={handleDetailChange}
       />
     );
   };

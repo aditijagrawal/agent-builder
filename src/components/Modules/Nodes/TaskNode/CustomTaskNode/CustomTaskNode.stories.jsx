@@ -1,12 +1,12 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
-import FlowNode from '../../../../FlowNode/FlowNode';
-import CustomTaskPanel from '../../../../RHSDrawer/CustomTaskPanel';
+import CanvasCard from '../../../../Molecules/Canvas/CanvasCard/CanvasCard';
 import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
+
 export default {
-  title: 'Agent Builder/Modules/Nodes/TaskNode/CustomTaskNode',
+  title: 'Agent Builder/Modules/Nodes/Task/CustomTask',
   parameters: { layout: 'centered' },
 };
 
@@ -20,19 +20,15 @@ export const LHSPreview = {
 
 export const CanvasPreview = {
   render: () => (
-    <FlowNode
-      type="task"
-      title="Task"
-      stepNumber={2}
-      description="Identify relevant mentions in the review"
-      subtitle="Custom: Custom AI task"
+    <CanvasCard
+      nodeType="task"
+      label="Task"
       hasAiIcon
       hasToggle
       toggleEnabled
-      onToggle={() => {}}
-      onMoreClick={() => {}}
-      onAddClick={() => {}}
-      onDelete={() => {}}
+      stepNumber={2}
+      title="Identify relevant mentions in the review"
+      description="LLM: Extract product or service-specific feedback from the review"
     />
   ),
 };
@@ -42,12 +38,5 @@ export const ExpandedRHS = {
 };
 
 export const RHSPreview = {
-  render: () => (
-    <div style={{ height: 700 }}>
-      <CustomTaskPanel
-        taskName="Identify relevant mentions in the review"
-        description="Extract product or service-specific feedback from the review"
-      />
-    </div>
-  ),
+  render: () => null,
 };

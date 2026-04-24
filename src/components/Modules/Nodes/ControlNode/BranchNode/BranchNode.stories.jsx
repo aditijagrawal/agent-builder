@@ -1,12 +1,11 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
-import FlowNode from '../../../../FlowNode/FlowNode';
-import BranchConfigPanel from '../../../../RHSDrawer/BranchConfigPanel';
+import CanvasCard from '../../../../Molecules/Canvas/CanvasCard/CanvasCard';
 import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
-  title: 'Agent Builder/Modules/Nodes/ControlNode/BranchNode',
+  title: 'Agent Builder/Modules/Nodes/Control/Branch',
   parameters: { layout: 'centered' },
 };
 
@@ -20,18 +19,15 @@ export const LHSPreview = {
 
 export const CanvasPreview = {
   render: () => (
-    <FlowNode
-      type="branch"
-      title="Branch"
-      stepNumber={3}
-      description="Based on conditions"
-      subtitle="Branch: Route by sentiment"
+    <CanvasCard
+      nodeType="branch"
+      label="Branch"
       hasToggle
       toggleEnabled
-      onToggle={() => {}}
-      onMoreClick={() => {}}
-      onAddClick={() => {}}
-      onDelete={() => {}}
+      hasAddButton
+      stepNumber={3}
+      title="Based on conditions"
+      description="Build condition-specific flows"
     />
   ),
 };
@@ -41,16 +37,5 @@ export const ExpandedRHS = {
 };
 
 export const RHSPreview = {
-  render: () => (
-    <div style={{ height: 700 }}>
-      <BranchConfigPanel
-        branchName="Legal"
-        description="Route reviews related to legal or compliance matters."
-        conditionGroups={[
-          [{ field: '1.Review.sentiment', operator: 'is equal to', value: 'Negative' }],
-          [{ field: '3.identified_team', operator: 'is equal to', value: 'Legal' }],
-        ]}
-      />
-    </div>
-  ),
+  render: () => null,
 };
