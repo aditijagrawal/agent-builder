@@ -1,10 +1,12 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
+import CanvasCard from '../../../../Molecules/Canvas/CanvasCard/CanvasCard';
 import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
+
 export default {
-  title: 'Agent Builder/Modules/Nodes/TriggerNode/EntityTriggerNode',
+  title: 'Agent Builder/Modules/Nodes/Trigger/EntityTrigger',
   parameters: { layout: 'centered' },
 };
 
@@ -31,9 +33,15 @@ export const LHSPreview = {
 
 export const CanvasPreview = {
   render: () => (
-    <div style={{ padding: 24, color: '#9e9e9e', fontFamily: 'sans-serif', fontSize: 14 }}>
-      EntityTriggerNode Canvas Preview — not yet implemented
-    </div>
+    <CanvasCard
+      nodeType="trigger"
+      label="Trigger"
+      hasToggle
+      toggleEnabled
+      stepNumber={1}
+      title="When a new review is received or updated"
+      description="Reviews: Triggers on new or updated reviews across all sources and locations"
+    />
   ),
 };
 
@@ -42,9 +50,5 @@ export const ExpandedRHS = {
 };
 
 export const RHSPreview = {
-  render: () => (
-    <div style={{ padding: 24, color: '#9e9e9e', fontFamily: 'sans-serif', fontSize: 14 }}>
-      EntityTriggerNode RHS Preview — not yet implemented
-    </div>
-  ),
+  render: () => null,
 };

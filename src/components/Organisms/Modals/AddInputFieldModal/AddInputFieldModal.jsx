@@ -4,7 +4,7 @@ import Button from '@birdeye/elemental/core/atoms/Button/index.js';
 import {
   gray900, gray2000, red100, white,
 } from '@birdeye/elemental/core/sass/js/colors.js';
-import CloseIcon from '../../../Molecules/RHSPanel/RHSPanelHeader/icons/close.svg';
+import CloseIcon from '../../../Molecules/RHS/RHSHeader/icons/close.svg';
 import DataType from '../../../Molecules/DataType/DataType';
 import VariableSelectionModal from '../VariableSelectionModal/VariableSelectionModal';
 

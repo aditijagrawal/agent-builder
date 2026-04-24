@@ -21,7 +21,7 @@ function StatusCell({ status }) {
 
 function LocationCell({ count }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
       <span style={{ fontSize: 13, color: '#212121' }}>{count}</span>
       <span
         className="material-symbols-outlined"
@@ -36,7 +36,7 @@ function LocationCell({ count }) {
       >
         expand_more
       </span>
-    </div>
+    </span>
   );
 }
 

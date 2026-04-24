@@ -1,12 +1,12 @@
 import React from 'react';
 import { CardRow } from '../../../../LHSDrawer/LHSDrawer';
 import '../../../../LHSDrawer/LHSDrawer.css';
-import FlowNode from '../../../../FlowNode/FlowNode';
-import TriggerConfigPanel from '../../../../RHSDrawer/TriggerConfigPanel';
+import CanvasCard from '../../../../Molecules/Canvas/CanvasCard/CanvasCard';
 import ConfigModal from '../../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
+
 export default {
-  title: 'Agent Builder/Modules/Nodes/TriggerNode/ScheduleTriggerNode',
+  title: 'Agent Builder/Modules/Nodes/Trigger/ScheduleTrigger',
   parameters: { layout: 'centered' },
 };
 
@@ -20,18 +20,14 @@ export const LHSPreview = {
 
 export const CanvasPreview = {
   render: () => (
-    <FlowNode
-      type="trigger"
-      title="Trigger"
-      stepNumber={1}
-      description="When a new review is received or updated"
-      subtitle="Schedule-based: Run every Monday at 9am"
+    <CanvasCard
+      nodeType="trigger"
+      label="Trigger"
       hasToggle
       toggleEnabled
-      onToggle={() => {}}
-      onMoreClick={() => {}}
-      onAddClick={() => {}}
-      onDelete={() => {}}
+      stepNumber={1}
+      title="Run every Monday at 9am"
+      description="Schedule-based: Runs on a recurring schedule"
     />
   ),
 };
@@ -41,10 +37,5 @@ export const ExpandedRHS = {
 };
 
 export const RHSPreview = {
-  render: () => (
-    <TriggerConfigPanel
-      triggerName="Schedule-based"
-      description="Schedule-based"
-    />
-  ),
+  render: () => null,
 };

@@ -1,9 +1,9 @@
 import React from 'react';
-import FlowNode from '../../../FlowNode/FlowNode';
+import EndNode from '../../../Molecules/Canvas/EndNode/EndNode';
 import ConfigModal from '../../ExpandedConfigModal/ConfigModal/ConfigModal';
 
 export default {
-  title: 'Agent Builder/Modules/Nodes/EndNode',
+  title: 'Agent Builder/Modules/Nodes/End',
   parameters: { layout: 'centered' },
 };
 
@@ -16,7 +16,7 @@ export const LHSPreview = {
 };
 
 export const CanvasPreview = {
-  render: () => <FlowNode type="end" />,
+  render: () => <EndNode />,
 };
 
 export const ExpandedRHS = {
@@ -24,9 +24,5 @@ export const ExpandedRHS = {
 };
 
 export const RHSPreview = {
-  render: () => (
-    <div style={{ padding: 24, color: '#9e9e9e', fontFamily: 'sans-serif', fontSize: 14 }}>
-      EndNode has no RHS configuration
-    </div>
-  ),
+  render: () => null,
 };

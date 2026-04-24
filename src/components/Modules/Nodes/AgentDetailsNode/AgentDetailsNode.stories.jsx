@@ -1,10 +1,10 @@
 import React from 'react';
-import StartNode from '../../../StartNode/StartNode';
-import RHSSidePanel from '../../../Organisms/Panels/RHSSidePanel/RHSSidePanel';
+import StartNode from '../../../Molecules/Canvas/StartNode/StartNode';
 import ConfigModal from '../../ExpandedConfigModal/ConfigModal/ConfigModal';
+import RHS from '../../../Organisms/Panels/RHS/RHS';
 
 export default {
-  title: 'Agent Builder/Modules/Nodes/AgentDetailsNode',
+  title: 'Agent Builder/Modules/Nodes/Start',
   parameters: { layout: 'centered' },
 };
 
@@ -31,6 +31,8 @@ export const ExpandedRHS = {
 
 export const RHSPreview = {
   render: () => (
-    <RHSSidePanel variant="agentDetails" onClose={() => {}} onSave={() => {}} />
+    <div style={{ width: 390, height: '100vh' }}>
+      <RHS variant="agentDetails" title="Agent details" onClose={() => {}} onSave={() => {}} />
+    </div>
   ),
 };

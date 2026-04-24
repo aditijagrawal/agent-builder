@@ -10,8 +10,9 @@ import {
 } from '@xyflow/react';
 import GraphControls from '../Modules/FlowCanvas/GraphControls/GraphControls';
 import '@xyflow/react/dist/style.css';
-import StartNode from '../StartNode/StartNode';
-import FlowNode from '../FlowNode/FlowNode';
+import StartNode from '../Molecules/Canvas/StartNode/StartNode';
+import EndNode from '../Molecules/Canvas/EndNode/EndNode';
+import CanvasCard from '../Molecules/Canvas/CanvasCard/CanvasCard';
 import './FlowCanvas.css';
 
 /* ─── Custom Node Wrappers ─── */
@@ -28,7 +29,7 @@ function TriggerNodeWrapper({ data }) {
   return (
     <div className="flow-canvas__node-center">
       <Handle type="target" position={Position.Top} />
-      <FlowNode type="trigger" {...data} />
+      <CanvasCard nodeType="trigger" label={data.title} stepNumber={data.stepNumber} title={data.description} description={data.subtitle} hasToggle={data.hasToggle} toggleEnabled={data.toggleEnabled} />
       <Handle type="source" position={Position.Bottom} />
     </div>
   );
@@ -38,7 +39,7 @@ function TaskNodeWrapper({ data }) {
   return (
     <div className="flow-canvas__node-center">
       <Handle type="target" position={Position.Top} />
-      <FlowNode type="task" {...data} />
+      <CanvasCard nodeType="task" label={data.title} stepNumber={data.stepNumber} title={data.description} description={data.subtitle} hasAiIcon={data.hasAiIcon} hasToggle={data.hasToggle} toggleEnabled={data.toggleEnabled} />
       <Handle type="source" position={Position.Bottom} />
     </div>
   );
@@ -48,7 +49,7 @@ function BranchNodeWrapper({ data }) {
   return (
     <div className="flow-canvas__node-center">
       <Handle type="target" position={Position.Top} />
-      <FlowNode type="branch" {...data} />
+      <CanvasCard nodeType="branch" label={data.title} stepNumber={data.stepNumber} title={data.description} description={data.subtitle} hasToggle={data.hasToggle} toggleEnabled={data.toggleEnabled} hasAddButton />
       <Handle type="source" position={Position.Bottom} />
     </div>
   );
@@ -58,7 +59,7 @@ function EndNodeWrapper() {
   return (
     <div className="flow-canvas__node-center">
       <Handle type="target" position={Position.Top} />
-      <FlowNode type="end" />
+      <EndNode />
     </div>
   );
 }
